@@ -51,10 +51,14 @@ int main()
 	// I've given you some starter code here that reads through each line of the
 	// OBJ file and makes it into a stringstream.
 	// The lines containing the vertices start with a 'v', so first check if each line
-	// starts with a v.
+// starts with a v.
 	// For these V lines, you should load the X, Y and Z coordinates into a new vector
 	// and push it back into your array of vertices.
+
+	// I've set up a big std::vector here to store all the vertices.
 	std::vector<Vector3> vertices;
+
+	// This while loop processes all the lines of the file
 	std::string line;
 	while (!bunnyFile.eof())
 	{

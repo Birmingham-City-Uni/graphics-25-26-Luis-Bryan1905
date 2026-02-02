@@ -75,24 +75,29 @@ int main()
 
 	// *** Task 2 ***
 	// Your next task is to load all the vertices from the OBJ file.
+	
 	// I've given you some starter code here that reads through each line of the
 	// OBJ file and makes it into a stringstream.
+	
 	// For these V lines, you should load the X, Y and Z coordinates into a new vector
 	// and push it back into your array of vertices.
+
+	// I've set up a big std::vector here to store all the vertices.
 	std::vector<Vector3> vertices;
 	std::vector<std::vector<unsigned int>> faces;
 	std::string line;
-	while (!bunnyFile.eof())
+	while (!bunnyFile.eof()) // This while loop processes all the lines of the file
 	{
-		std::getline(bunnyFile, line);
+		std::getline(bunnyFile, line); // reads characters from an input stream and places them into a string:
 		std::stringstream lineSS(line.c_str());
 		char lineStart;
 		lineSS >> lineStart;
 		char ignoreChar;
-		if (lineStart == 'v') {
+		if (lineStart == 'v') 
+		{
 			Vector3 v;
 			for (int i = 0; i < 3; ++i) lineSS >> v[i];
-			vertices.push_back(v);
+			vertices.push_back(v); // add vertice to list
 		}
 
 

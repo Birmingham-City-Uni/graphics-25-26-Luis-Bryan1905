@@ -35,13 +35,13 @@ int main()
 	//           but remember, the pixels have 8-bit unsigned values, so range from 0 to 255!
 	
 
-	//for(int y = 0; y < height; ++y) 
-	//	for (int x = 0; x < width; ++x) 
-	//		for (int c = 0; c < 3; ++c) 
-	//		{
-	//			int pixelIdx = x + y * width;
-	//			imageBuffer[pixelIdx * 4 + c] = (255 - imageBuffer[pixelIdx * 4 + c]); //makes a negative of the input image
-	//		}
+	for(int y = 0; y < height; ++y) 
+		for (int x = 0; x < width; ++x) 
+			for (int c = 0; c < 3; ++c) 
+			{
+				int pixelIdx = x + y * width;
+				imageBuffer[pixelIdx * 4 + c] = (255 - imageBuffer[pixelIdx * 4 + c]); //makes a negative of the input image
+			}
 
 
 	// * Optional Task 2: Try downsampling this image to 1/2 resolution.
@@ -49,15 +49,15 @@ int main()
 	//           Hint: Be careful when averaging! You probably want to convert the pixel values to floating-point to
 	//           do the averaging maths.s
 
-	width /= ResolutionMode;
-	height /= ResolutionMode;
+	//width /= ResolutionMode;
+	//height /= ResolutionMode;
 
-	for (int y = 0; y < height; ++y)
-		for (int x = 0; x < width; ++x)
-			for (int c = 0; c < 3; ++c) 
-			{
-				int pixelIdx = x + y * width;
-			}
+	//for (int y = 0; y < height; ++y)
+	//	for (int x = 0; x < width; ++x)
+	//		for (int c = 0; c < 3; ++c) 
+	//		{
+	//			int pixelIdx = x + y * width;
+	//		}
 
 
 	int errorCode;
