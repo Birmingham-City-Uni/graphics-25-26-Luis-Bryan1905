@@ -54,7 +54,7 @@ void drawLine(std::vector<uint8_t>& image, int width, int height, int startX, in
 
 int main()
 {
-	std::string outputFilename = "output.png";
+	std::string outputFilename = "output_bunny_Edges.png";
 
 	const int width = 512, height = 512;
 	const int nChannels = 4;

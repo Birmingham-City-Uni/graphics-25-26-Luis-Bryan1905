@@ -12,19 +12,24 @@ public:
 	// This is the default constructor.
 	// Change this to set the x, y and z components of the vector to all be zero.
 	// You can use an initialiser list, or set them in the constructor function's body.
+
 	Vector2()
-		:x_(0), y_(0)
 	{
 		// YOUR CODE HERE
+		x_ = 0.0f;
+
+		y_ = 0.0f;
 	}
 
 	// This constructor can be used to set the x, y and z components of a vector when it
 	// is created. Change this function to set the x_, y_ and z_ members to the values
 	// provided.
 	Vector2(float x, float y)
-		:x_(x), y_(y)
 	{
 		// YOUR CODE HERE
+		x_ = x;
+
+		y_ = y;
 	}
 
 	// Implement this method to add two vectors.
@@ -108,18 +113,19 @@ public:
 
 	const float cross(const Vector2& other)
 	{
-		// YOUR CODE HERE
-		// Implement the cross product, following the formula from the slides.
-		// Note of course the cross product isn't actually defined for 2D vectors!
-		// To implement it here, we're interpreting these vectors as 3D vectors with a z-component of 0
-		// We're only returning a float (which is the z-component of the resulting vector)
-		// If you think about it, the x and y components of this output vector will always be 0.
+		float cross = x_ * other.y() - y_ * other.x();
+		
+
+		return cross;
 	}
 
 	const float dot(const Vector2& other)
 	{
 		// YOUR CODE HERE
 		// Implement the dot product, following the formula from the slides.
+		int dot = (x_ * other.x()) + (y_ * other.y());
+
+		return dot;
 	}
 
 private:

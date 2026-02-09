@@ -28,7 +28,7 @@ void setPixel(std::vector<uint8_t>& image, int x, int y, int width, int height, 
 
 int main()
 {
-	std::string outputFilename = "output.png";
+	std::string outputFilename = "output_bunny_Vertices.png";
 
 	const int width = 512, height = 512;
 	const int nChannels = 4;

@@ -2,6 +2,7 @@
 #include <lodepng.h>
 #include <fstream>
 #include <sstream>
+#include <algorithm> // for std::min and std::max
 #include "Vector3.hpp"
 #include "Vector2.hpp"
 
@@ -24,9 +25,7 @@ void setPixel(std::vector<uint8_t>& image, int x, int y, int width, int height, 
 
 // Task 2: Implement this barycentric-coordinate-based triangle drawing function, based on the algorithm
 // described in the slides. I've broken down the steps involved here in comments added to the function.
-void drawTriangle(std::vector<uint8_t>& image, int width, int height,
-	const Vector2& p0, const Vector2& p1, const Vector2& p2,
-	uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255)
+void drawTriangle(std::vector<uint8_t>& image, int width, int height, const Vector2& p0, const Vector2& p1, const Vector2& p2, uint8_t r, uint8_t g, uint8_t b, uint8_t a = 255)
 {
 	// Find a bounding box around the triangle
 	// (that is, find minX, minY and maxX, maxY that are the min and max x and y-coordinates present in the triangle)
@@ -35,11 +34,57 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 	// YOUR CODE HERE
 	int minX = 0, minY = 0, maxX = 0, maxY = 0;
 
+	// Find min and max X
+	minX = std::min({ p0.x(), p1.x(), p2.x() });
+	maxX = std::max({ p0.x(), p1.x(), p2.x() });
+
+	// Find min and max Y
+	minY = std::min({ p0.y(), p1.y(), p2.y() });
+	maxY = std::max({ p0.y(), p1.y(), p2.y() });
+
 	// Check your minX, minY, maxX and maxY values don't lie outside the image!
 	// This would cause errors if you attempt to draw there.
 	// That is, clamp these values so that 0 <= x < width and 0 <= y < height.
 
-	// YOUR CODE HERE
+	if (minX < 0)
+	{
+		minX = 0;
+	}
+
+	if (minX > width)
+	{
+		minX = width;
+	}
+
+	if (maxX < 0)
+	{
+		maxX = 0;
+	}
+
+	if (maxX > width)
+	{
+		maxX = width;
+	}
+
+	if (minY < 0)
+	{
+		minY = 0;
+	}
+
+	if (minY > height)
+	{
+		minY = height;
+	}
+
+	if (maxY < 0)
+	{
+		maxY = 0;
+	}
+
+	if (maxY > height)
+	{
+		maxY = height;
+	}
 
 	// Find vectors going along two edges of the triangle
 	// from p0 to p1, and from p1 to p2.
