@@ -116,7 +116,7 @@ int main()
     // IMAGE BUFFER
     SetFlatBackground(imageBuffer, 0, 255, 255, 255);
 
-	SetImageBackground(imageBuffer, 1, "../images/stanford_bunny.png");
+	//SetImageBackground(imageBuffer, 1, "../images/stanford_bunny.png"); //Currently broken
 
     SetSinglePixel(imageBuffer, 12, 12, 255, 0, 255, 255);
 

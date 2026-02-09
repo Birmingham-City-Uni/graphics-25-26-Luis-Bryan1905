@@ -30,15 +30,11 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height, const Vect
 	// Find a bounding box around the triangle
 	// (that is, find minX, minY and maxX, maxY that are the min and max x and y-coordinates present in the triangle)
 	// You can use the std::min and std::max functions if you wish.
-	
-	// YOUR CODE HERE
 	int minX = 0, minY = 0, maxX = 0, maxY = 0;
 
-	// Find min and max X
-	minX = std::min({ p0.x(), p1.x(), p2.x() });
-	maxX = std::max({ p0.x(), p1.x(), p2.x() });
+	minX = std::min({ p0.x(), p1.x(), p2.x() }); 
+	maxX = std::max({ p0.x(), p1.x(), p2.x() }); 
 
-	// Find min and max Y
 	minY = std::min({ p0.y(), p1.y(), p2.y() });
 	maxY = std::max({ p0.y(), p1.y(), p2.y() });
 
@@ -92,6 +88,10 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height, const Vect
 	// YOUR CODE HERE
 	Vector2 edge1, edge2;
 
+	edge1 = p1 - p0; // Vector from p0 to p1
+
+	edge2 = p2 - p1; // Vector from p1 to p2	
+
 	// Find the area of the triangle using a cross product.
 	// Optional: You can use the sign of the cross product to see if this triangle is facing towards
 	// or away from the camera. If you avoid drawing the triangles that face away, this may improve 
@@ -100,6 +100,13 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height, const Vect
 
 	// YOUR CODE HERE
 	float triangleArea = 0.0f;
+
+	triangleArea = edge1.cross(edge2); // Area of the triangle using cross product
+
+	if (triangleArea <= 0)
+	{
+		return;
+	}
 
 	// Now let's actually draw the triangle!
 	// We'll do a for loop over all pixels in the bounding box.
@@ -116,11 +123,19 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height, const Vect
 			float a1;
 			float a2;
 
+			a0 = fabsf((p - p1).cross(p2 - p1)); // Area of triangle formed by p, p1, p2
+			a1 = fabsf((p - p2).cross(p0 - p2)); // Area of triangle formed by p, p2, p0
+			a2 = fabsf((p - p0).cross(p1 - p0)); // Area of triangle formed by p, p0, p1
+
 			// Find the barycentrics b0, b1, and b2 by dividing by triangle area.
 			// YOUR CODE HERE - do the division and find b0, b1, b2.
 			float b0;
 			float b1;
 			float b2;
+
+			b0 = a0 / triangleArea; // Barycentric coordinate corresponding to vertex p0
+			b1 = a1 / triangleArea; // Barycentric coordinate corresponding to vertex p1
+			b2 = a2 / triangleArea; // Barycentric coordinate corresponding to vertex p2
 
 			// Check if the sum of b0, b1, b2 is bigger than 1 (or ideally a number just over 1 
 			// to account for numerical error).
@@ -128,8 +143,15 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height, const Vect
 			// YOUR CODE HERE
 			float sum;
 
+			sum = b0 + b1 + b2; // Sum of barycentric coordinates
+
+			if (sum <= 1.1)
+			{
 			// Now we're sure we're inside the triangle, and we can draw this pixel!
 			setPixel(image, x, y, width, height, r, g, b, a);
+			}
+
+
 		}
 }
 
@@ -188,7 +210,7 @@ int main()
 
 		// Task 3: Draw the bunny!
 		// Now you've finished your triangle drawing function, you'll see a red bunny, drawn using the code below:
-		drawTriangle(imageBuffer, width, height, p0, p1, p2, 255, 0, 0, 255);
+		//drawTriangle(imageBuffer, width, height, p0, p1, p2, 255, 0, 0, 255);
 
 		// This is a bit boring. Try replacing this code to draw two different bunny types.
 
@@ -197,6 +219,8 @@ int main()
 		// the rand() function in C++.
 		// Hint: Remember rand() returns an int, but we want our colour values to lie between 0 and 255.
 		// How can we make sure our random r, g, b values stick to the right range?
+
+		drawTriangle(imageBuffer, width, height, p0, p1, p2, rand() % 255, rand() % 255, rand() % 255, 255);
 
 		// Bunny 2: (Sort of) Diffuse Lighting Bunny
 		// For the final task we'll do a bit of a preview of session 5 on diffuse lighting.
