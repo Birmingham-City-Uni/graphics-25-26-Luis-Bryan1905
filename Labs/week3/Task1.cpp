@@ -210,17 +210,17 @@ int main()
 
 		// Task 3: Draw the bunny!
 		// Now you've finished your triangle drawing function, you'll see a red bunny, drawn using the code below:
+		
 		//drawTriangle(imageBuffer, width, height, p0, p1, p2, 255, 0, 0, 255);
 
 		// This is a bit boring. Try replacing this code to draw two different bunny types.
-
 		// Bunny 1: Random Colour Bunny
 		// Assign a random colour to each triangle in the bunny. You can do this by making use of 
 		// the rand() function in C++.
 		// Hint: Remember rand() returns an int, but we want our colour values to lie between 0 and 255.
 		// How can we make sure our random r, g, b values stick to the right range?
 
-		drawTriangle(imageBuffer, width, height, p0, p1, p2, rand() % 255, rand() % 255, rand() % 255, 255);
+		drawTriangle(imageBuffer, width, height, p0, p1, p2, (rand() % 255), (rand() % 255), (rand() % 255), 255);
 
 		// Bunny 2: (Sort of) Diffuse Lighting Bunny
 		// For the final task we'll do a bit of a preview of session 5 on diffuse lighting.
@@ -228,7 +228,9 @@ int main()
 		// 
 		// To do this, first find a vector pointing out at 90 degrees from the triangle, and normalise it
 		// This special perpendicular vector is called the triangle's *normal*.
-		//
+	
+		
+
 		// Once you have your normal, take the dot product with (0,0,1). This will effectively measure how much
 		// the normal points down the positive z-axis.
 		// Use this value to set the brightness of the triangle (remember to scale it back to the [0,255] range).
