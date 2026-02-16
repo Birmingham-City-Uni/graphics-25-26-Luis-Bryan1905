@@ -115,9 +115,10 @@ void drawMesh(std::vector<unsigned char>& image, const Mesh& mesh,
 		// The matrix is 4x4, and the v0, v1, v2 are 3D! You'll need to convert them to 4D 
 		// homogeneous vectors first (add a 1 in the w component).
 		// You can use the vec3ToVec4 function above to do this.
-		tv0 = Eigen::Vector4f::Zero();
-		tv1 = Eigen::Vector4f::Zero();
-		tv2 = Eigen::Vector4f::Zero();
+
+		tv0 = transform * vec3ToVec4(v0);
+		tv1 = transform * vec3ToVec4(v1);
+		tv2 = transform * vec3ToVec4(v2);
 
 		Eigen::Vector2f p0(tv0.x() * 250 + width / 2, -tv0.y() * 250 + height / 2);
 		Eigen::Vector2f p1(tv1.x() * 250 + width / 2, -tv1.y() * 250 + height / 2);
@@ -143,14 +144,27 @@ void drawMesh(std::vector<unsigned char>& image, const Mesh& mesh,
 Eigen::Matrix4f translationMatrix(const Eigen::Vector3f& t)
 {
 	// *** Your code here ***
-	return Eigen::Matrix4f::Identity();
+
+	//Eigen::Matrix4f TranslationMatrix = Eigen::Vector4f(t.x(), t.y(), t.z(), 1);
+	Eigen::Matrix4f TranslationMatrix = Eigen::Matrix4f::Identity();
+	TranslationMatrix.block<3, 1>(0, 3) = t;
+
+	return TranslationMatrix;
 }
 
 // Implement this function that makes a uniform scaling matrix
 Eigen::Matrix4f scaleMatrix(float s)
 {
 	// *** Your code here ***
-	return Eigen::Matrix4f::Identity();
+	//Eigen::Matrix4f ScalingMatrix = Eigen::Vector4f(0, 0, 0, s);
+	Eigen::Matrix4f ScalingMatrix = Eigen::Matrix4f::Identity();
+
+	ScalingMatrix(0, 0) = s;
+	ScalingMatrix(1, 1) = s;
+	ScalingMatrix(2, 2) = s;
+
+
+	return ScalingMatrix;
 }
 
 // Implement this function that makes a rotation matrix around the y
@@ -159,7 +173,22 @@ Eigen::Matrix4f scaleMatrix(float s)
 Eigen::Matrix4f rotateYMatrix(float theta)
 {
 	// *** Your code here ***
-	return Eigen::Matrix4f::Identity();
+	Eigen::Matrix4f RotatingYMatrix = Eigen::Matrix4f::Identity();
+	float cos = std::cos(theta);
+	float sin = std::sin(theta);
+	// rotation around Y:
+	// [  c  0  s  0 ]
+	// [  0  1  0  0 ]
+	// [ -s  0  c  0 ]
+	// [  0  0  0  1 ]
+	RotatingYMatrix(0, 0) = cos;   RotatingYMatrix(0, 1) = 0; RotatingYMatrix(0, 2) = sin;
+
+	RotatingYMatrix(1, 0) = 0;     RotatingYMatrix(1, 1) = 1; RotatingYMatrix(1, 2) = 0;
+
+	RotatingYMatrix(2, 0) = -sin;  RotatingYMatrix(2, 1) = 0; RotatingYMatrix(2, 2) = cos;
+
+
+	return RotatingYMatrix;
 }
 
 int main()
@@ -243,7 +272,7 @@ int main()
 
 	std::string outputFilename = "output.png";
 
-	const int width = 512, height = 512;
+	const int width = 8192, height = 8192;
 	const int nChannels = 4;
 
 	// Setting up an image buffer
@@ -257,9 +286,11 @@ int main()
 
 	std::string bunnyFilename = "../models/stanford_bunny_simplified.obj";
 	std::string dragonFilename = "../models/stanford_dragon_simplified.obj";
+	std::string sonicFilename = "../models/sonic.obj";
 
 	Mesh bunnyMesh = loadMeshFile(bunnyFilename);
 	Mesh dragonMesh = loadMeshFile(dragonFilename);
+	Mesh sonicMesh = loadMeshFile(sonicFilename);
 
 
 	// ============ TASK 3 =================
@@ -270,8 +301,9 @@ int main()
 	// TIP: Think about the order of your transforms. Do you want to rotate first,
 	//      scale first, or translate first? Does the order matter?
 
-	Eigen::Matrix4f bunnyTransform = Eigen::Matrix4f::Identity();
-	Eigen::Matrix4f dragonTransform = Eigen::Matrix4f::Identity();
+	Eigen::Matrix4f bunnyTransform = translationMatrix(Eigen::Vector3f(-0.5f, -0.5f, 0));
+	Eigen::Matrix4f dragonTransform = scaleMatrix(1.5f) * translationMatrix(Eigen::Vector3f(0.22f, 0, 0));
+	Eigen::Matrix4f sonicTransform = rotateYMatrix(-45) * translationMatrix(Eigen::Vector3f(0.75f, -0.85f, 0));;
 
 	// =========== TASK 4 ==============
 	// Prepare your own mesh in blender, exporting as OBJ
@@ -280,6 +312,7 @@ int main()
 
 	drawMesh(imageBuffer, bunnyMesh, Eigen::Vector3f(0, 1, 0), bunnyTransform, width, height);
 	drawMesh(imageBuffer, dragonMesh, Eigen::Vector3f(0, 1, 1), dragonTransform, width, height);
+	drawMesh(imageBuffer, sonicMesh, Eigen::Vector3f(0, 0, 1), sonicTransform, width, height);
 
 	// *** Encoding image data ***
 	// PNG files are compressed to save storage space. 
