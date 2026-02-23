@@ -20,18 +20,27 @@ float vec2Cross(const Eigen::Vector2f& v0, const Eigen::Vector2f& v1)
 Eigen::Matrix4f translationMatrix(const Eigen::Vector3f& t)
 {
 	// *** Your code here ***
-	Eigen::Matrix4f output = Eigen::Matrix4f::Identity();
-	output.block<3, 1>(0, 3) = t;
-	return output;
+
+	//Eigen::Matrix4f TranslationMatrix = Eigen::Vector4f(t.x(), t.y(), t.z(), 1);
+	Eigen::Matrix4f TranslationMatrix = Eigen::Matrix4f::Identity();
+	TranslationMatrix.block<3, 1>(0, 3) = t;
+
+	return TranslationMatrix;
 }
 
 // Implement this function that makes a uniform scaling matrix
 Eigen::Matrix4f scaleMatrix(float s)
 {
 	// *** Your code here ***
-	Eigen::Matrix4f output = Eigen::Matrix4f::Identity();
-	output.block<3, 3>(0, 0) *= s;
-	return output;
+	//Eigen::Matrix4f ScalingMatrix = Eigen::Vector4f(0, 0, 0, s);
+	Eigen::Matrix4f ScalingMatrix = Eigen::Matrix4f::Identity();
+
+	ScalingMatrix(0, 0) = s;
+	ScalingMatrix(1, 1) = s;
+	ScalingMatrix(2, 2) = s;
+
+
+	return ScalingMatrix;
 }
 
 // Implement this function that makes a rotation matrix around the y
@@ -40,13 +49,22 @@ Eigen::Matrix4f scaleMatrix(float s)
 Eigen::Matrix4f rotateYMatrix(float theta)
 {
 	// *** Your code here ***
-	Eigen::Matrix4f output;
-	output <<
-		cosf(theta), 0, sinf(theta), 0.f,
-		0.f, 1.f, 0.f, 0.f,
-		-sinf(theta), 0.f, cosf(theta), 0.f,
-		0.f, 0.f, 0.f, 1.f;
-	return output;
+	Eigen::Matrix4f RotatingYMatrix = Eigen::Matrix4f::Identity();
+	float cos = std::cos(theta);
+	float sin = std::sin(theta);
+	// rotation around Y:
+	// [  c  0  s  0 ]
+	// [  0  1  0  0 ]
+	// [ -s  0  c  0 ]
+	// [  0  0  0  1 ]
+	RotatingYMatrix(0, 0) = cos;   RotatingYMatrix(0, 1) = 0; RotatingYMatrix(0, 2) = sin;
+
+	RotatingYMatrix(1, 0) = 0;     RotatingYMatrix(1, 1) = 1; RotatingYMatrix(1, 2) = 0;
+
+	RotatingYMatrix(2, 0) = -sin;  RotatingYMatrix(2, 1) = 0; RotatingYMatrix(2, 2) = cos;
+
+
+	return RotatingYMatrix;
 }
 
 template<typename T> T coeffWiseMultiply(const T& l, const T& r)
