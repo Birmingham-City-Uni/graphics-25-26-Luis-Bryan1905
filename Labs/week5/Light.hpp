@@ -167,7 +167,7 @@ public:
 		// square law.
 		// *** YOUR CODE HERE ***
 
-		float distance = (surfaceLocation - _location).norm();
+		float distance = (_location - surfaceLocation).norm();
 		return _intensity / (distance * distance);
 		// *** END YOUR CODE ***
 	}
@@ -254,7 +254,7 @@ public:
 	virtual Eigen::Vector3f getLightLocation() override
 	{
 		// *** YOUR CODE HERE ***
-		return Eigen::Vector3f::Zero();
+		return _location;
 		// *** END YOUR CODE ***
 	}
 };	

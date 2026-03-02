@@ -83,6 +83,7 @@ public:
 		// Ambient lights do not have a direction, so throw an error!
 		// *** YOUR CODE HERE ***
 		throw std::runtime_error("ERROR: Ambient lights have no light direction.");
+		return Eigen::Vector3f::Zero();
 		// *** END YOUR CODE ***
 	}
 
@@ -91,6 +92,7 @@ public:
 		// Ambient lights do not have a location, so throw an error!
 		// *** YOUR CODE HERE ***
 		throw std::runtime_error("ERROR: Ambient lights have no location.");
+		return Eigen::Vector3f::Zero();
 		// *** END YOUR CODE ***
 	}
 };
@@ -135,6 +137,7 @@ public:
 		// Directional lights do not have a location, so throw an error!
 		// *** YOUR CODE HERE ***
 		throw std::runtime_error("ERROR: Directional lights have no location.");
+		return Eigen::Vector3f::Zero();
 		// *** END YOUR CODE ***
 	}
 };	

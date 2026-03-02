@@ -30,41 +30,63 @@ Eigen::Vector2f v2(const Eigen::Vector3f& v)
 Eigen::Matrix4f translationMatrix(const Eigen::Vector3f& t)
 {
 	// *** Your code here ***
-	Eigen::Matrix4f output = Eigen::Matrix4f::Identity();
-	output.block<3, 1>(0, 3) = t;
-	return output;
+	Eigen::Matrix4f TranslationMatrix = Eigen::Matrix4f::Identity();
+	TranslationMatrix.block<3, 1>(0, 3) = t;
+
+	return TranslationMatrix;
 }
 
 // Implement this function that makes a uniform scaling matrix
 Eigen::Matrix4f scaleMatrix(float s)
 {
 	// *** Your code here ***
-	Eigen::Matrix4f output = Eigen::Matrix4f::Identity();
-	output.block<3, 3>(0, 0) *= s;
-	return output;
+	Eigen::Matrix4f ScalingMatrix = Eigen::Matrix4f::Identity();
+
+	ScalingMatrix(0, 0) = s;
+	ScalingMatrix(1, 1) = s;
+	ScalingMatrix(2, 2) = s;
+
+
+	return ScalingMatrix;
 }
 
 Eigen::Matrix4f rotateXMatrix(float theta)
 {
 	// *** Your code here ***
-	Eigen::Matrix4f output;
-	output <<
-		1.f, 0.f, 0.f, 0.f,
-		0.f, cosf(theta), -sinf(theta), 0.f,
-		0.f, sinf(theta), cosf(theta), 0.f,
-		0.f, 0.f, 0.f, 1.f;
-	return output;
+	Eigen::Matrix4f RotatingXMatrix = Eigen::Matrix4f::Identity();
+	float cos = std::cos(theta);
+	float sin = std::sin(theta);
+	// rotation around X:
+	// [  1  0  0 ]
+	// [  0  c -s ]
+	// [  0  s  c ]
+
+	RotatingXMatrix(0, 0) = 1;  RotatingXMatrix(0, 1) = 0;   RotatingXMatrix(0, 2) = 0;
+
+	RotatingXMatrix(1, 0) = 0;  RotatingXMatrix(1, 1) = cos; RotatingXMatrix(1, 2) = -sin;
+
+	RotatingXMatrix(2, 0) = 0;  RotatingXMatrix(2, 1) = sin; RotatingXMatrix(2, 2) = cos;
+
+
+	return RotatingXMatrix;
 }
 Eigen::Matrix4f rotateYMatrix(float theta)
 {
-	// *** Your code here ***
-	Eigen::Matrix4f output;
-	output <<
-		cosf(theta), 0, sinf(theta), 0.f,
-		0.f, 1.f, 0.f, 0.f,
-		-sinf(theta), 0.f, cosf(theta), 0.f,
-		0.f, 0.f, 0.f, 1.f;
-	return output;
+	Eigen::Matrix4f RotatingYMatrix = Eigen::Matrix4f::Identity();
+	float cos = std::cos(theta);
+	float sin = std::sin(theta);
+	// rotation around Y:
+	// [  c  0  s ]
+	// [  0  1  0 ]
+	// [ -s  0  c ]
+	RotatingYMatrix(0, 0) = cos;   RotatingYMatrix(0, 1) = 0; RotatingYMatrix(0, 2) = sin;
+
+	RotatingYMatrix(1, 0) = 0;     RotatingYMatrix(1, 1) = 1; RotatingYMatrix(1, 2) = 0;
+
+	RotatingYMatrix(2, 0) = -sin;  RotatingYMatrix(2, 1) = 0; RotatingYMatrix(2, 2) = cos;
+
+
+	return RotatingYMatrix;
 }
 
 template<typename T> T coeffWiseMultiply(const T& l, const T& r)
