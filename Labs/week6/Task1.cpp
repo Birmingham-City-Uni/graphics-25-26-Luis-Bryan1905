@@ -46,7 +46,7 @@ Eigen::Matrix4f projectionMatrix(int height, int width, float horzFov = 70.f*M_P
 	projection(1, 1) = 1.f / tanf(0.5f * vertFov);
 	projection(2, 2) = zFar / (zFar - zNear);
 	projection(2, 3) = -zFar * zNear / (zFar - zNear);
-	projection(3, 2) = -1.f;
+	projection(3, 2) = 1.f;
 	 
 	return projection;
 	// *** END YOUR CODE ***
@@ -121,7 +121,6 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 			// Use barycentric interpolation on these to work out the depth of this pixel.
 			float depth = b0 * t.screen[0].z() + b1 * t.screen[1].z() + b2 * t.screen[2].z();
 
-
 			// Work out where to sample in the zBuffer. Remember the zBuffer has only one channel,
 			// so your index should be based on the pixel's x and y locations, and the width of the 
 			// z buffer only.
@@ -131,16 +130,13 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 			// Otherwise, replace the zBuffer value at depthIdx with this depth.
 			// ADD YOUR OWN CODE TO DO THIS HERE
 
-			// *** END YOUR CODE ***
-
-			if (depth > zBuffer[depthIdx]) 
-			{
+			if (depth > zBuffer[depthIdx]) {
 				continue;
 			}
-			else 
-			{
-				zBuffer[depthIdx] = depth;
-			}
+
+			zBuffer[depthIdx] = depth;
+
+			// *** END YOUR CODE ***
 
 			Eigen::Vector3f normP = t.norms[0] * b0 + t.norms[1] * b1 + t.norms[2] * b2;
 			normP.normalize();
@@ -282,6 +278,11 @@ void drawMesh(std::vector<unsigned char>& image,
 		// skip drawing this triangle.
 		// Hint: I've made a function outsideClipBox in LinAlg.hpp to help with this!
 
+		if (outsideClipBox(vClip0) || outsideClipBox(vClip1) || outsideClipBox(vClip2))
+		{
+			continue;
+		}
+
 		// Work out the screen space coordinates based on the image height and width.
 		// Set the z component of each screen coordinate to be the clip-space z (for example: t.screen[0].z() == vClip0.z());
 		t.screen[0] = Eigen::Vector3f((vClip0.x() + 1.0f) * width / 2, (-vClip0.y() + 1.0f) * height / 2, vClip0.z());
@@ -341,9 +342,7 @@ int main()
 
 	// The main important task = set up the worldToCamera and worldToClip matrices here!
 	// Set up worldToCamera, based on cameraToWorld above
-	Eigen::Matrix4f worldToCamera;
-
-	worldToCamera = cameraToWorld.inverse();
+	Eigen::Matrix4f worldToCamera = cameraToWorld.inverse();
 
 	// Set up worldToClip, using the projection and worldToCamera matrices
 	Eigen::Matrix4f worldToClip;
