@@ -28,7 +28,7 @@ struct Triangle {
 };
 
 
-Eigen::Matrix4f projectionMatrix(int height, int width, float horzFov = 70.f*M_PI/180.f, float zFar = 10.f, float zNear = 0.1f)
+Eigen::Matrix4f projectionMatrix(int height, int width, float horzFov = 70.f * M_PI / 180.f, float zFar = 10.f, float zNear = 0.1f)
 {
 	// ========= Subtask 1: Make a Projection Matrix ========
 	// *** YOUR CODE HERE ***
@@ -47,7 +47,7 @@ Eigen::Matrix4f projectionMatrix(int height, int width, float horzFov = 70.f*M_P
 	projection(2, 2) = zFar / (zFar - zNear);
 	projection(2, 3) = -zFar * zNear / (zFar - zNear);
 	projection(3, 2) = 1.f;
-	 
+
 	return projection;
 	// *** END YOUR CODE ***
 }
@@ -61,10 +61,10 @@ void findScreenBoundingBox(const Triangle& t, int width, int height, int& minX, 
 	maxY = std::max(std::max(t.screen[0].y(), t.screen[1].y()), t.screen[2].y());
 
 	// Constrain it to lie within the image.
-	minX = std::min(std::max(minX, 0), width-1);
-	maxX = std::min(std::max(maxX, 0), width-1);
-	minY = std::min(std::max(minY, 0), height-1);
-	maxY = std::min(std::max(maxY, 0), height-1);
+	minX = std::min(std::max(minX, 0), width - 1);
+	maxX = std::min(std::max(maxX, 0), width - 1);
+	minY = std::min(std::max(minY, 0), height - 1);
+	maxY = std::min(std::max(maxY, 0), height - 1);
 }
 
 
@@ -86,7 +86,7 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 		return;
 	}
 
-	for(int x = minX; x <= maxX; ++x) 
+	for (int x = minX; x <= maxX; ++x)
 		for (int y = minY; y <= maxY; ++y) {
 			Eigen::Vector2f p(x, y);
 
@@ -105,7 +105,7 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 			if (sum > 1.0001) {
 				continue;
 			}
-			
+
 			Eigen::Vector3f worldP = t.verts[0] * b0 + t.verts[1] * b1 + t.verts[2] * b2;
 
 			// ========== Subtask 4: Z Buffering ==========
@@ -187,7 +187,7 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 			Eigen::Vector3f color = Eigen::Vector3f::Zero();
 
 			// Iterate over lights, and sum to find colour.
-			for (auto& light : lights) 
+			for (auto& light : lights)
 			{
 
 				// Work out the contribution from this light source, and add it to the color variable.
@@ -196,7 +196,7 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 				Eigen::Vector3f lightIntensity = light->getIntensityAt(worldP);
 
 				// We only need to do the following if the light isn't an ambient light.
-				if (light->getType() != Light::Type::AMBIENT) 
+				if (light->getType() != Light::Type::AMBIENT)
 				{
 
 					// Take the dot product of the normal with the light direction.
@@ -215,9 +215,9 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 
 			Color c;
 			// Gamma-correcting colours.
-			c.r = std::min(powf(color.x(), 1/2.2f), 1.0f) * 255;
-			c.g = std::min(powf(color.y(), 1/2.2f), 1.0f) * 255;
-			c.b = std::min(powf(color.z(), 1/2.2f), 1.0f) * 255;
+			c.r = std::min(powf(color.x(), 1 / 2.2f), 1.0f) * 255;
+			c.g = std::min(powf(color.y(), 1 / 2.2f), 1.0f) * 255;
+			c.b = std::min(powf(color.z(), 1 / 2.2f), 1.0f) * 255;
 
 			c.a = 255;
 
@@ -229,10 +229,10 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 
 void drawMesh(std::vector<unsigned char>& image,
 	std::vector<float>& zBuffer,
-	const Mesh& mesh, 
+	const Mesh& mesh,
 	const std::vector<uint8_t>& albedoTexture, int texWidth, int texHeight,
-	const Eigen::Matrix4f& modelToWorld, 
-	const Eigen::Matrix4f& worldToClip, 
+	const Eigen::Matrix4f& modelToWorld,
+	const Eigen::Matrix4f& worldToClip,
 	const std::vector<std::unique_ptr<Light>>& lights,
 	int width, int height)
 {
@@ -272,7 +272,7 @@ void drawMesh(std::vector<unsigned char>& image,
 
 		Eigen::Vector4f vClip2 = worldToClip * modelToWorld * vec3ToVec4(v2);
 		vClip2 /= vClip2.w();
-	
+
 
 		// Check that all 3 vertices are in the clip box (-1 to 1 in x, y and z) and if not,
 		// skip drawing this triangle.
@@ -317,7 +317,7 @@ int main()
 	// This std::vector has one 8-bit value for each pixel in each row and column of the image, and
 	// for each of the 4 channels (red, green, blue and alpha).
 	// Remember 8-bit unsigned values can range from 0 to 255.
-	std::vector<uint8_t> imageBuffer(height*width*nChannels);
+	std::vector<uint8_t> imageBuffer(height * width * nChannels);
 	std::vector<float> zBuffer(height * width);
 
 	// This line sets the image to black initially.
@@ -363,7 +363,7 @@ int main()
 	Mesh bunnyMesh = loadMeshFile(bunnyFilename);
 
 
-	Eigen::Matrix4f bunnyTransform; 
+	Eigen::Matrix4f bunnyTransform;
 
 	std::vector<uint8_t> bunnyTexture;
 	unsigned int bunnyTexWidth, bunnyTexHeight;

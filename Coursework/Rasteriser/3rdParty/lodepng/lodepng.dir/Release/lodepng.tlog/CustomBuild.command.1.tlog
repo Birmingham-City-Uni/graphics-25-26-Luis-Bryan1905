@@ -1,0 +1,10 @@
+^C:\USERS\S22162192\DESKTOP\GRAPHICS-25-26-LUIS-BRYAN1905\LABS\WEEK6\3RDPARTY\LODEPNG\CMAKELISTS.TXT
+setlocal
+"C:\Program Files\CMake\bin\cmake.exe" -SC:/Users/S22162192/Desktop/graphics-25-26-Luis-Bryan1905/Labs/week6 -BC:/Users/S22162192/Desktop/graphics-25-26-Luis-Bryan1905/Labs/week6/Build --check-stamp-file C:/Users/S22162192/Desktop/graphics-25-26-Luis-Bryan1905/Labs/week6/Build/3rdParty/lodepng/CMakeFiles/generate.stamp
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal & call :cmErrorLevel %errorlevel% & goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd
