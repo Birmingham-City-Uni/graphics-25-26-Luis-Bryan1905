@@ -89,6 +89,20 @@ Eigen::Matrix4f rotateYMatrix(float theta)
 	return RotatingYMatrix;
 }
 
+Eigen::Matrix4f rotateZMatrix(float theta)
+{
+	Eigen::Matrix4f RotatingZMatrix = Eigen::Matrix4f::Identity();
+	float cos = std::cos(theta);
+	float sin = std::sin(theta);
+	// rotation around Z:
+	// [  c -s  0 ]
+	// [  s  c  0 ]
+	// [  0  0  1 ]
+	RotatingZMatrix(0, 0) = cos;   RotatingZMatrix(0, 1) = -sin; RotatingZMatrix(0, 2) = 0;
+	RotatingZMatrix(1, 0) = sin;   RotatingZMatrix(1, 1) = cos;  RotatingZMatrix(1, 2) = 0;
+	RotatingZMatrix(2, 0) = 0;     RotatingZMatrix(2, 1) = 0;    RotatingZMatrix(2, 2) = 1;
+}
+
 template<typename T> T coeffWiseMultiply(const T& l, const T& r)
 {
 	return (l.array() * r.array()).matrix();
