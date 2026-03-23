@@ -8,6 +8,8 @@
 #include "LinAlg.hpp"
 #include "Light.hpp"
 #include "Mesh.hpp"
+#include<string.h>
+#include <iostream>
 
 // ***** WEEK 6 LAB *****
 // Subtask 1: Implement the projectionMatrix function, to make a projection matrix to view your scene!
@@ -28,7 +30,7 @@ struct Triangle {
 };
 
 
-Eigen::Matrix4f projectionMatrix(int height, int width, float horzFov = 70.f*M_PI/180.f, float zFar = 10.f, float zNear = 0.1f)
+Eigen::Matrix4f projectionMatrix(int height, int width, float horzFov = 70.f*M_PI/180.f, float zFar = 10000.f, float zNear = 0.1f)
 {
 	// ========= Subtask 1: Make a Projection Matrix ========
 	// *** YOUR CODE HERE ***
@@ -151,6 +153,9 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 			// Use barycentric interpolation!
 			Eigen::Vector2f texP = Eigen::Vector2f::Zero();
 			texP = t.texs[0] * b0 + t.texs[1] * b1 + t.texs[2] * b2;
+
+			texP.x() = texP.x() - floor(texP.x()); //wrap UVs (this is the important bit)
+			texP.y() = texP.y() - floor(texP.y());
 			// Convert this coordinate to a point in texture space
 			// To do so, multiply by the texWidth and texHeight to get to the correct range.
 			// Don't forget to flip the y coordinates!
@@ -236,6 +241,8 @@ void drawMesh(std::vector<unsigned char>& image,
 	const std::vector<std::unique_ptr<Light>>& lights,
 	int width, int height)
 {
+	std::cout << "Drawing with " << mesh.vFaces.size() << " triangles." << std::endl;
+
 	for (int i = 0; i < mesh.vFaces.size(); ++i) {
 
 
@@ -278,7 +285,7 @@ void drawMesh(std::vector<unsigned char>& image,
 		// skip drawing this triangle.
 		// Hint: I've made a function outsideClipBox in LinAlg.hpp to help with this!
 
-		if (outsideClipBox(vClip0) || outsideClipBox(vClip1) || outsideClipBox(vClip2))
+		if (outsideClipBox(vClip0) && outsideClipBox(vClip1) && outsideClipBox(vClip2))
 		{
 			continue;
 		}
@@ -300,6 +307,8 @@ void drawMesh(std::vector<unsigned char>& image,
 		t.texs[0] = mesh.texs[mesh.tFaces[i][0]];
 		t.texs[1] = mesh.texs[mesh.tFaces[i][1]];
 		t.texs[2] = mesh.texs[mesh.tFaces[i][2]];
+
+		std::cout << "Drawing triangle " << i << " / " << mesh.vFaces.size() << "\r" << std::flush;
 
 		drawTriangle(image, width, height, zBuffer, t, lights, albedoTexture, texWidth, texHeight);
 	}
@@ -338,7 +347,7 @@ int main()
 
 	// This matrix rotates the camera, tilting it down, then translates it up to make it look down on the scene.
 	// Once your code is working, try changing this to move the camera around!
-	Eigen::Matrix4f cameraToWorld = translationMatrix(Eigen::Vector3f(0.f, 0.8f, 0.f)) * rotateXMatrix(0.4f);
+	Eigen::Matrix4f cameraToWorld = translationMatrix(Eigen::Vector3f(0, 0.8f, 0)) * rotateXMatrix(0.4f);
 
 	// The main important task = set up the worldToCamera and worldToClip matrices here!
 	// Set up worldToCamera, based on cameraToWorld above
@@ -370,7 +379,7 @@ int main()
 	
 
 	Eigen::Matrix4f ConsoleTransform; 
-	ConsoleTransform = translationMatrix(Eigen::Vector3f(-1.0f, -1.0f, 3.f)) * rotateYMatrix(M_PI);
+	ConsoleTransform = translationMatrix(Eigen::Vector3f(-0.0f, 0.0f, 0.f)) * rotateYMatrix(M_PI);
 
 	std::vector<uint8_t> m9_monitor721_kd1;
 	unsigned int monitor721_TexWidth, monitor721_TexHeight;
@@ -388,9 +397,7 @@ int main()
 	lodepng::decode(m9_glass740_kd1, glass740_TexWidth, glass740_TexHeight, "../models/w9_glass740_abd_a.png");
 	drawMesh(imageBuffer, zBuffer, ConsoleMesh3, m9_glass740_kd1, glass740_TexWidth, glass740_TexHeight, ConsoleTransform, worldToClip, lights, width, height);
 	
-	Mesh FloorMesh = loadMeshFile("../models/Floor.obj");
-
-	ConsoleTransform = translationMatrix(Eigen::Vector3f(-2.0f, 0.0f, 0.f)) * rotateYMatrix(M_PI);
+	Mesh FloorMesh = loadMeshFile("../models/w9a02.obj");
 
 	std::vector<uint8_t> w3_concrete201_abd;
 	unsigned int concrete201_TexWidth, concrete201_TexHeight;

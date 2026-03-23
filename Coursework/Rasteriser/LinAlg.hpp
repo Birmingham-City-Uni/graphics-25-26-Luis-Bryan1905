@@ -101,6 +101,8 @@ Eigen::Matrix4f rotateZMatrix(float theta)
 	RotatingZMatrix(0, 0) = cos;   RotatingZMatrix(0, 1) = -sin; RotatingZMatrix(0, 2) = 0;
 	RotatingZMatrix(1, 0) = sin;   RotatingZMatrix(1, 1) = cos;  RotatingZMatrix(1, 2) = 0;
 	RotatingZMatrix(2, 0) = 0;     RotatingZMatrix(2, 1) = 0;    RotatingZMatrix(2, 2) = 1;
+
+	return RotatingZMatrix;
 }
 
 template<typename T> T coeffWiseMultiply(const T& l, const T& r)
