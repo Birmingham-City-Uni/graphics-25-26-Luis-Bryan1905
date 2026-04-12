@@ -112,12 +112,13 @@ template<typename T> T coeffWiseMultiply(const T& l, const T& r)
 
 bool outsideClipBox(const Eigen::Vector4f& v)
 {
+	float max = 1.1f; // a small tolerance to avoid numerical issues with vertices that are just outside the box	
 	return
-		v.x() < -1.f ||
-		v.y() < -1.f ||
-		v.z() < -1.f ||
-		v.x() > 1.f ||
-		v.y() > 1.f ||
-		v.z() > 1.f;
+		v.x() < -max ||
+		v.y() < -max ||
+		v.z() < -max ||
+		v.x() > max ||
+		v.y() > max ||
+		v.z() > max;
 }
 

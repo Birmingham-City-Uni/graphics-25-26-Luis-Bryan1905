@@ -9,7 +9,6 @@
 #include "Light.hpp"
 #include "Mesh.hpp"
 #include<string.h>
-#include <iostream>
 
 // ***** WEEK 6 LAB *****
 // Subtask 1: Implement the projectionMatrix function, to make a projection matrix to view your scene!
@@ -30,7 +29,7 @@ struct Triangle {
 };
 
 
-Eigen::Matrix4f projectionMatrix(int height, int width, float horzFov = 70.f*M_PI/180.f, float zFar = 10000.f, float zNear = 0.1f)
+Eigen::Matrix4f projectionMatrix(int height, int width, float horzFov = 55.1f*M_PI/180.f, float zFar = 10000.f, float zNear = 0.1f)
 {
 	// ========= Subtask 1: Make a Projection Matrix ========
 	// *** YOUR CODE HERE ***
@@ -121,12 +120,13 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 			// First, work out the depth of this location in screen space. 
 			// We saved the clip space z values in t.screen[0].z(), t.screen[1].z() and t.screen[2].z.
 			// Use barycentric interpolation on these to work out the depth of this pixel.
-			float depth = b0 * t.screen[0].z() + b1 * t.screen[1].z() + b2 * t.screen[2].z();
+
+			float depth = t.screen[0].z() * b0 + t.screen[1].z() * b1 + t.screen[2].z() * b2;
 
 			// Work out where to sample in the zBuffer. Remember the zBuffer has only one channel,
 			// so your index should be based on the pixel's x and y locations, and the width of the 
 			// z buffer only.
-			int depthIdx = y * width + x;
+			int depthIdx = static_cast<int>(p.x()) + static_cast<int>(p.y()) * width;
 
 			// If your depth is bigger than the current depth, skip drawing this pixel.
 			// Otherwise, replace the zBuffer value at depthIdx with this depth.
@@ -292,11 +292,18 @@ void drawMesh(std::vector<unsigned char>& image,
 
 		// Work out the screen space coordinates based on the image height and width.
 		// Set the z component of each screen coordinate to be the clip-space z (for example: t.screen[0].z() == vClip0.z());
-		t.screen[0] = Eigen::Vector3f((vClip0.x() + 1.0f) * width / 2, (-vClip0.y() + 1.0f) * height / 2, vClip0.z());
 
-		t.screen[1] = Eigen::Vector3f((vClip1.x() + 1.0f) * width / 2, (-vClip1.y() + 1.0f) * height / 2, vClip1.z());
 
-		t.screen[2] = Eigen::Vector3f((vClip2.x() + 1.0f) * width / 2, (-vClip2.y() + 1.0f) * height / 2, vClip2.z());
+		float x0 = -vClip0.x();
+		float x1 = -vClip1.x();
+		float x2 = -vClip2.x();
+
+
+		t.screen[0] = Eigen::Vector3f((x0 + 1.0f) * 0.5f * width, (1.0f - (vClip0.y() + 1.0f) * 0.5f) * height, vClip0.z());
+
+		t.screen[1] = Eigen::Vector3f((x1 + 1.0f) * 0.5f * width, (1.0f - (vClip1.y() + 1.0f) * 0.5f) * height, vClip1.z());
+
+		t.screen[2] = Eigen::Vector3f((x2 + 1.0f) * 0.5f * width, (1.0f - (vClip2.y() + 1.0f) * 0.5f) * height, vClip2.z());
 		// *** END YOUR CODE ***
 
 		// transform the normals (using the inverse transpose of the upper 3x3 block)
@@ -311,15 +318,15 @@ void drawMesh(std::vector<unsigned char>& image,
 		std::cout << "Drawing triangle " << i << " / " << mesh.vFaces.size() << "\r" << std::flush;
 
 		drawTriangle(image, width, height, zBuffer, t, lights, albedoTexture, texWidth, texHeight);
+
 	}
 }
-
 
 int main()
 {
 	std::string outputFilename = "output.png";
 
-	const int width = 512, height = 512;
+	const int width = 1920, height = 1080;
 	const int nChannels = 4;
 
 	// Setting up an image buffer
@@ -347,7 +354,7 @@ int main()
 
 	// This matrix rotates the camera, tilting it down, then translates it up to make it look down on the scene.
 	// Once your code is working, try changing this to move the camera around!
-	Eigen::Matrix4f cameraToWorld = translationMatrix(Eigen::Vector3f(0, 0.8f, 0)) * rotateXMatrix(0.4f);
+	Eigen::Matrix4f cameraToWorld = translationMatrix(Eigen::Vector3f(-2.13726, 2.38136, -3.87966)) * rotateYMatrix(0.58f) * rotateXMatrix(0.4f);
 
 	// The main important task = set up the worldToCamera and worldToClip matrices here!
 	// Set up worldToCamera, based on cameraToWorld above
@@ -372,40 +379,252 @@ int main()
 	
 	//std::string bunnyFilename = "../models/stanford_bunny_texmapped.obj";
 
-	Mesh ConsoleMesh1 = loadMeshFile("../models/ev_obj_w9_hideconsole_001.obj");
-	Mesh ConsoleMesh2 = loadMeshFile("../models/ev_obj_w9_hideconsole_002.obj");
-	Mesh ConsoleMesh3 = loadMeshFile("../models/ev_obj_w9_hideconsole_003.obj");
-
 	
-
-	Eigen::Matrix4f ConsoleTransform; 
-	ConsoleTransform = translationMatrix(Eigen::Vector3f(-0.0f, 0.0f, 0.f)) * rotateYMatrix(M_PI);
-
+	
+	
+	
+	Eigen::Matrix4f MeshTransform; 
+	MeshTransform = translationMatrix(Eigen::Vector3f(-0.0f, 0.0f, 0.f)) * rotateYMatrix(M_PI);
+	
+	Mesh ConsoleMesh1 = loadMeshFile("../models/ev_obj_w9_hideconsole_001.obj");
 	std::vector<uint8_t> m9_monitor721_kd1;
 	unsigned int monitor721_TexWidth, monitor721_TexHeight;
-	lodepng::decode(m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, "../models/w9_monitor720_abd.png");
-	drawMesh(imageBuffer, zBuffer, ConsoleMesh1, m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, ConsoleTransform, worldToClip, lights, width, height);
-
+	lodepng::decode(m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, "../textures/w9_monitor720_abd.png");
+	drawMesh(imageBuffer, zBuffer, ConsoleMesh1, m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	
+	Mesh ConsoleMesh2 = loadMeshFile("../models/ev_obj_w9_hideconsole_002.obj");
 	std::vector<uint8_t> m9_metalwall702_kd1;
 	unsigned int metalwall702_TexWidth, metalwall702_TexHeight;
-	lodepng::decode(m9_metalwall702_kd1, metalwall702_TexWidth, metalwall702_TexHeight, "../models/w9_metal702_abd.png");
-	drawMesh(imageBuffer, zBuffer, ConsoleMesh2, m9_metalwall702_kd1, metalwall702_TexWidth, metalwall702_TexHeight, ConsoleTransform, worldToClip, lights, width, height);
-
-
+	lodepng::decode(m9_metalwall702_kd1, metalwall702_TexWidth, metalwall702_TexHeight, "../textures/w9_metal702_abd.png");
+	drawMesh(imageBuffer, zBuffer, ConsoleMesh2, m9_metalwall702_kd1, metalwall702_TexWidth, metalwall702_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	
+	Mesh ConsoleMesh3 = loadMeshFile("../models/ev_obj_w9_hideconsole_003.obj");
 	std::vector<uint8_t> m9_glass740_kd1;
 	unsigned int glass740_TexWidth, glass740_TexHeight;
-	lodepng::decode(m9_glass740_kd1, glass740_TexWidth, glass740_TexHeight, "../models/w9_glass740_abd_a.png");
-	drawMesh(imageBuffer, zBuffer, ConsoleMesh3, m9_glass740_kd1, glass740_TexWidth, glass740_TexHeight, ConsoleTransform, worldToClip, lights, width, height);
+	lodepng::decode(m9_glass740_kd1, glass740_TexWidth, glass740_TexHeight, "../textures/w9_glass740_abd_a.png");
+	drawMesh(imageBuffer, zBuffer, ConsoleMesh3, m9_glass740_kd1, glass740_TexWidth, glass740_TexHeight, MeshTransform, worldToClip, lights, width, height);
 	
-	Mesh FloorMesh = loadMeshFile("../models/w9a02.obj");
+	//Mesh w9a02_concrete03 = loadMeshFile("../models/w9a02_concrete03.obj"); //BROKEN RENDERERING???
+	//std::vector<uint8_t> w3_concrete003_abd;
+	//unsigned int concrete003_TexWidth, concrete003_TexHeight;
+	//lodepng::decode(w3_concrete003_abd, concrete003_TexWidth, concrete003_TexHeight, "../textures/w3_concrete003_abd.png");
+	//drawMesh(imageBuffer, zBuffer, w9a02_concrete03, w3_concrete003_abd, concrete003_TexWidth, concrete003_TexHeight, MeshTransform, worldToClip, lights, width, height);
 
+	Mesh w9a02_debris02 = loadMeshFile("../models/w9a02_debris02.obj");
+	std::vector<uint8_t> w3_debris002_abd_a;
+	unsigned int w3_debris002_abd_a_TexWidth, w3_debris002_abd_a_TexHeight;
+	lodepng::decode(w3_debris002_abd_a, w3_debris002_abd_a_TexWidth, w3_debris002_abd_a_TexHeight, "../textures/w3_debris002_abd_a.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_debris02, w3_debris002_abd_a, w3_debris002_abd_a_TexWidth, w3_debris002_abd_a_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+
+	//Mesh w9a02_drum01 = loadMeshFile("../models/w9a02_drum01.obj"); //CAUSES CRASH??
+	//std::vector<uint8_t> w3_mat_ym2_drum01;
+	//unsigned int w3_metal405_abd_TexWidth, w3_metal405_abd_TexHeight;
+	//lodepng::decode(w3_mat_ym2_drum01, w3_metal405_abd_TexWidth, w3_metal405_abd_TexWidth, "../textures/w3_metal405_abd.png");
+	//drawMesh(imageBuffer, zBuffer, w9a02_drum01, w3_mat_ym2_drum01, w3_metal405_abd_TexWidth, w3_metal405_abd_TexWidth, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_iron02 = loadMeshFile("../models/w9a02_iron02.obj");
+	std::vector<uint8_t> w3_iron402_abd;
+	unsigned int w3_iron402_abd_TexWidth, w3_iron402_abd_TexHeight;
+	lodepng::decode(w3_iron402_abd, w3_iron402_abd_TexWidth, w3_iron402_abd_TexHeight, "../textures/w3_iron402_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_iron02, w3_iron402_abd, w3_iron402_abd_TexWidth, w3_iron402_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_km1_brick01 = loadMeshFile("../models/w9a02_km1_brick01.obj");
+	std::vector<uint8_t> w3_brick201_abd;
+	unsigned int w3_brick201_TexWidth, w3_brick201_TexHeight;
+	lodepng::decode(w3_brick201_abd, w3_brick201_TexWidth, w3_brick201_TexHeight, "../textures/w3_brick201_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_km1_brick01, w3_brick201_abd, w3_brick201_TexWidth, w3_brick201_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_km1_concrete01 = loadMeshFile("../models/w9a02_km1_concrete01.obj");
 	std::vector<uint8_t> w3_concrete201_abd;
 	unsigned int concrete201_TexWidth, concrete201_TexHeight;
-	lodepng::decode(w3_concrete201_abd, concrete201_TexWidth, concrete201_TexHeight, "../models/w3_concrete201_abd.png");
-	drawMesh(imageBuffer, zBuffer, FloorMesh, w3_concrete201_abd, concrete201_TexWidth, concrete201_TexHeight, ConsoleTransform, worldToClip, lights, width, height);
+	lodepng::decode(w3_concrete201_abd, concrete201_TexWidth, concrete201_TexHeight, "../textures/w3_concrete201_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_km1_concrete01, w3_concrete201_abd, concrete201_TexWidth, concrete201_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	
+	Mesh w9a02_metal02 = loadMeshFile("../models/w9a02_metal02.obj");
+	std::vector<uint8_t> w3_metal102_abd;
+	unsigned int w3_metal102_abd_TexWidth, w3_metal102_abd_TexHeight;
+	lodepng::decode(w3_metal102_abd, w3_metal102_abd_TexWidth, w3_metal102_abd_TexHeight, "../textures/w3_metal102_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metal02, w3_metal102_abd, w3_metal102_abd_TexWidth, w3_metal102_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_metal05 = loadMeshFile("../models/w9a02_metal05.obj");
+	std::vector<uint8_t> w3_metal105_abd;
+	unsigned int w3_metal104_abd_TexWidth, w3_metal104_abd_TexHeight;
+	lodepng::decode(w3_metal105_abd, w3_metal104_abd_TexWidth, w3_metal104_abd_TexHeight, "../textures/w3_metal104_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metal05, w3_metal105_abd, w3_metal104_abd_TexWidth, w3_metal104_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_metal101_kd1 = loadMeshFile("../models/w9a02_metal101_kd1.obj");
+	std::vector<uint8_t> m9_metal101_kd1;
+	unsigned int w9_metal101_abd_TexWidth, w9_metal101_abd_abd_TexHeight;
+	lodepng::decode(m9_metal101_kd1, w9_metal101_abd_TexWidth, w9_metal101_abd_abd_TexHeight, "../textures/w9_metal101_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metal101_kd1, m9_metal101_kd1, w9_metal101_abd_TexWidth, w9_metal101_abd_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_metal151 = loadMeshFile("../models/w9a02_metal151.obj"); //TEXTURE CAUSES CRASH??
+	std::vector<uint8_t> w9_metal151_abd;
+	unsigned int w9_metal151_abd_TexWidth, w9_metal151_abd_TexHeight;
+	lodepng::decode(w9_metal151_abd, w9_metal151_abd_TexWidth, w9_metal151_abd_TexHeight, "../textures/w9_metal151_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metal151, w9_metal151_abd, w9_metal151_abd_TexWidth, w9_metal151_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+
+	Mesh w9a02_metal159 = loadMeshFile("../models/w9a02_metal159.obj");
+	std::vector<uint8_t> w9_metal159_abd;
+	unsigned int w9_metal159_abd_TexWidth, w9_metal159_abd_TexHeight;
+	lodepng::decode(w9_metal159_abd, w9_metal159_abd_TexWidth, w9_metal159_abd_TexHeight, "../textures/w9_metal159_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metal159, w9_metal159_abd, w9_metal159_abd_TexWidth, w9_metal159_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	//Mesh w9a02_metal154 = loadMeshFile("../models/w9a02_metal154.obj"); //TEXTURE CAUSES CRASH??
+	//std::vector<uint8_t> w9_metal154_abd;
+	//unsigned int w9_metal154_abd_TexWidth, w9_metal154_abd_TexHeight;
+	//lodepng::decode(w9_metal154_abd, w9_metal154_abd_TexWidth, w9_metal154_abd_TexHeight, "../textures/w9_metal154_abd.png");
+	//drawMesh(imageBuffer, zBuffer, w9a02_metal154, w9_metal154_abd, w9_metal154_abd_TexWidth, w9_metal154_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_metal709 = loadMeshFile("../models/w9a02_metal709.obj");
+	std::vector<uint8_t> w9_metal709_abd;
+	unsigned int w9_metal709_abd_TexWidth, w9_metal709_abd_TexHeight;
+	lodepng::decode(w9_metal709_abd, w9_metal709_abd_TexWidth, w9_metal709_abd_TexHeight, "../textures/w9_metal159_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metal709, w9_metal709_abd, w9_metal709_abd_TexWidth, w9_metal709_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	
+	Mesh w9a02_metal909 = loadMeshFile("../models/w9a02_metal909.obj");
+	std::vector<uint8_t> w9_metal909_abd;
+	unsigned int w9_metal909_abd_TexWidth, w9_metal909_abd_TexHeight;
+	lodepng::decode(w9_metal909_abd, w9_metal909_abd_TexWidth, w9_metal909_abd_TexHeight, "../textures/w9_metal909_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metal909, w9_metal909_abd, w9_metal909_abd_TexWidth, w9_metal909_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_metal913mc = loadMeshFile("../models/w9a02_metal913mc.obj");
+	std::vector<uint8_t> w9_metal913_abd;
+	unsigned int w9_metal913_abd_TexWidth, w9_metal913_abd_TexHeight;
+	lodepng::decode(w9_metal913_abd, w9_metal913_abd_TexWidth, w9_metal913_abd_TexHeight, "../textures/w9_metal913_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metal913mc, w9_metal913_abd, w9_metal913_abd_TexWidth, w9_metal913_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_metalnail001 = loadMeshFile("../models/w9a02_metalnail001.obj");
+	std::vector<uint8_t> w3_metal402_abd;
+	unsigned int w3_metal402_abd_TexWidth, w3_metal402_abd_TexHeight;
+	lodepng::decode(w3_metal402_abd, w3_metal402_abd_TexWidth, w3_metal402_abd_TexHeight, "../textures/w3_metal402_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metalnail001, w3_metal402_abd, w3_metal402_abd_TexWidth, w3_metal402_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_metalwall701 = loadMeshFile("../models/w9a02_metalwall701.obj");
+	std::vector<uint8_t> w9_metal701_abd;
+	unsigned int w9_metal701_abd_TexWidth, w9_metal701_abd_TexHeight;
+	lodepng::decode(w9_metal701_abd, w9_metal701_abd_TexWidth, w9_metal701_abd_TexHeight, "../textures/w9_metal701_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metalwall701, w9_metal701_abd, w9_metal701_abd_TexWidth, w9_metal701_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_metalwall703 = loadMeshFile("../models/w9a02_metalwall703.obj");
+	std::vector<uint8_t> w9_metal703_abd;
+	unsigned int w9_metal703_abd_TexWidth, w9_metal703_abd_TexHeight;
+	lodepng::decode(w9_metal703_abd, w9_metal703_abd_TexWidth, w9_metal703_abd_TexHeight, "../textures/w9_metal703_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metalwall703, w9_metal703_abd, w9_metal703_abd_TexWidth, w9_metal703_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_metalwall705 = loadMeshFile("../models/w9a02_metalwall705.obj");
+	std::vector<uint8_t> w9_metal705_abd;
+	unsigned int w9_metal705_abd_TexWidth, w9_metal705_abd_TexHeight;
+	lodepng::decode(w9_metal705_abd, w9_metal705_abd_TexWidth, w9_metal705_abd_TexHeight, "../textures/w9_metal705_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_metalwall705, w9_metal705_abd, w9_metal705_abd_TexWidth, w9_metal705_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_monitor721 = loadMeshFile("../models/w9a02_monitor721.obj");
+	drawMesh(imageBuffer, zBuffer, w9a02_monitor721, m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_my1_brick01 = loadMeshFile("../models/w9a02_my1_brick01.obj");
+	std::vector<uint8_t> w3_brick001_abd;
+	unsigned int w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight;
+	lodepng::decode(w3_brick001_abd, w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight, "../textures/w3_brick001_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_my1_brick01, w3_brick001_abd, w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+
+	Mesh w9a02_my1_concrete01 = loadMeshFile("../models/w9a02_my1_concrete01.obj");
+	std::vector<uint8_t> w3_concrete001_abd;
+	unsigned int w3_concrete001_abd_TexWidth, w3_concrete001_abd_TexHeight;
+	lodepng::decode(w3_concrete001_abd, w3_concrete001_abd_TexWidth, w3_concrete001_abd_TexHeight, "../textures/w3_concrete001_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_my1_concrete01, w3_concrete001_abd, w3_concrete001_abd_TexWidth, w3_concrete001_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_my1_iron01 = loadMeshFile("../models/w9a02_my1_iron01.obj");
+	std::vector<uint8_t> w3_iron001_abd;
+	unsigned int w3_iron001_abd_TexWidth, w3_iron001_abd_TexHeight;
+	lodepng::decode(w3_iron001_abd, w3_iron001_abd_TexWidth, w3_iron001_abd_TexHeight, "../textures/w3_iron001_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_my1_iron01, w3_iron001_abd, w3_iron001_abd_TexWidth, w3_iron001_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_my1_wall01 = loadMeshFile("../models/w9a02_my1_wall01.obj");
+	std::vector<uint8_t> w3_wall001_abd;
+	unsigned int w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight;
+	lodepng::decode(w3_wall001_abd, w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight, "../textures/w3_wall001_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_my1_wall01, w3_wall001_abd, w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_my1_wood04 = loadMeshFile("../models/w9a02_my1_wood04.obj");
+	std::vector<uint8_t> w3_wood004_abd;
+	unsigned int w3_wood004_abd_TexWidth, w3_wood004_abd_TexHeight;
+	lodepng::decode(w3_wood004_abd, w3_wood004_abd_TexWidth, w3_wood004_abd_TexHeight, "../textures/w3_wood004_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_my1_wood04, w3_wood004_abd, w3_wood004_abd_TexWidth, w3_wood004_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_neon745 = loadMeshFile("../models/w9a02_neon745.obj");
+	std::vector<uint8_t> w9_neon723_ems;
+	unsigned int w9_neon723_ems_TexWidth, w9_neon723_ems_TexHeight;
+	lodepng::decode(w9_neon723_ems, w9_neon723_ems_TexWidth, w9_neon723_ems_TexHeight, "../textures/w9_neon723_ems.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_neon745, w9_neon723_ems, w9_neon723_ems_TexWidth, w9_neon723_ems_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_neon746 = loadMeshFile("../models/w9a02_neon746.obj");
+	drawMesh(imageBuffer, zBuffer, w9a02_neon746, w9_neon723_ems, w9_neon723_ems_TexWidth, w9_neon723_ems_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_neon747 = loadMeshFile("../models/w9a02_neon747.obj");
+	drawMesh(imageBuffer, zBuffer, w9a02_neon747, w9_neon723_ems, w9_neon723_ems_TexWidth, w9_neon723_ems_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_neon748 = loadMeshFile("../models/w9a02_neon748.obj");
+	drawMesh(imageBuffer, zBuffer, w9a02_neon748, w9_neon723_ems, w9_neon723_ems_TexWidth, w9_neon723_ems_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_pipe901 = loadMeshFile("../models/w9a02_pipe901.obj");
+	std::vector<uint8_t> w9_pipe901_abd;
+	unsigned int w9_pipe901_abd_TexWidth, w9_pipe901_abd_TexHeight;
+	lodepng::decode(w9_pipe901_abd, w9_pipe901_abd_TexWidth, w9_pipe901_abd_TexHeight, "../textures/w9_pipe901_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_pipe901, w9_pipe901_abd, w9_pipe901_abd_TexWidth, w9_pipe901_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_tire01 = loadMeshFile("../models/w9a02_tire01.obj");
+	std::vector<uint8_t> w3_rubber401_abd;
+	unsigned int w3_rubber401_abd_TexWidth, w3_rubber401_abd_TexHeight;
+	lodepng::decode(w3_rubber401_abd, w3_rubber401_abd_TexWidth, w3_rubber401_abd_TexHeight, "../textures/w3_rubber401_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_tire01, w3_rubber401_abd, w3_rubber401_abd_TexWidth, w3_rubber401_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+
+	//Mesh w9a02_wall03 = loadMeshFile("../models/w9a02_wall03.obj"); //BROKEN RENDERERING???
+	//std::vector<uint8_t> w3_mat_km1_wall03;
+	//unsigned int w3_wall203_abd_TexWidth, w3_wall203_abd_abd_TexHeight;
+	//lodepng::decode(w3_mat_km1_wall03, w3_wall203_abd_TexWidth, w3_wall203_abd_abd_TexHeight, "../textures/w3_wall203_abd.png");
+	//drawMesh(imageBuffer, zBuffer, w9a02_wall03, w3_mat_km1_wall03, w3_wall203_abd_TexWidth, w3_wall203_abd_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_wall05 = loadMeshFile("../models/w9a02_wall05.obj"); 
+	std::vector<uint8_t> w3_wall205_abd;
+	unsigned int w3_wall205_abd_TexWidth, w3_wall205_abd_TexHeight;
+	lodepng::decode(w3_wall205_abd, w3_wall205_abd_TexWidth, w3_wall205_abd_TexHeight, "../textures/w3_wall205_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_wall05, w3_wall205_abd, w3_wall205_abd_TexWidth, w3_wall205_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+
+	Mesh w9a02_wood01 = loadMeshFile("../models/w9a02_wood01.obj");
+	std::vector<uint8_t> w3_woodburn401_abd;
+	unsigned int w3_woodburn401_abd_TexWidth, w3_woodburn401_abd_TexHeight;
+	lodepng::decode(w3_woodburn401_abd, w3_woodburn401_abd_TexWidth, w3_woodburn401_abd_TexHeight, "../textures/w3_woodburn401_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_wood01, w3_woodburn401_abd, w3_woodburn401_abd_TexWidth, w3_woodburn401_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_wood03 = loadMeshFile("../models/w9a02_wood03.obj");
+	std::vector<uint8_t> w3_wood303_abd;
+	unsigned int w3_wood303_abd_TexWidth, w3_wood303_abd_TexHeight;
+	lodepng::decode(w3_wood303_abd, w3_wood303_abd_TexWidth, w3_wood303_abd_TexHeight, "../textures/w3_wood303_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_wood03, w3_wood303_abd, w3_wood303_abd_TexWidth, w3_wood303_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_wood05 = loadMeshFile("../models/w9a02_wood05.obj");
+	std::vector<uint8_t> w3_wood005_abd;
+	unsigned int w3_wood005_abd_TexWidth, w3_wood005_abd_TexHeight;
+	lodepng::decode(w3_wood005_abd, w3_wood005_abd_TexWidth, w3_wood005_abd_TexHeight, "../textures/w3_wood005_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_wood05, w3_wood005_abd, w3_wood005_abd_TexWidth, w3_wood005_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+	Mesh w9a02_ym2_iron01 = loadMeshFile("../models/w9a02_ym2_iron01.obj");
+	std::vector<uint8_t> w3_iron401_abd;
+	unsigned int w3_iron401_abd_TexWidth, w3_iron401_abd_TexHeight;
+	lodepng::decode(w3_iron401_abd, w3_iron401_abd_TexWidth, w3_iron401_abd_TexHeight, "../textures/w3_iron401_abd.png");
+	drawMesh(imageBuffer, zBuffer, w9a02_ym2_iron01, w3_iron401_abd, w3_iron401_abd_TexWidth, w3_iron401_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
+
+
+	std::cout << "All Meshes Drawn " << std::endl;
 
 	// For debug - draw point lights as colored circles so we can see where they are
 	drawPointLights(imageBuffer, width, height, lights);
+	std::cout << "Lights Drawn " << std::endl;
 
 	// Save the image to png.
 	int errorCode;
