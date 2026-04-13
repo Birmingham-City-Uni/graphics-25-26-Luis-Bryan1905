@@ -143,18 +143,18 @@ bool refract(const Vector3f& incident, const Vector3f& norm, float eta, Vector3f
 	// Steps:
 	// 1. Find the value of the "k" from the lecture slides.
 
-	float cosi = -incident.dot(norm);
+	float cosi = incident.dot(norm);
 
 	float k = 1 - eta * eta * (1 - cosi * cosi);
 
 	// 2. If k < 0, return false (TIR occurs).
-	if (k <= 0) 
+	if (k < 0) 
 	{
 		return false;
 	}
 
 	// 3. Otherwise, find the refracted ray and return true.
-	refracted = eta * incident + (eta * cosi - sqrtf(k)) * norm;
+	refracted = eta * incident - (eta * cosi + sqrtf(k)) * norm;
 	refracted.normalize();
 	return true;
 
@@ -427,7 +427,7 @@ int main()
 	// Task 5: Add a mirror reflective sphere to your scene, and raytrace again!
 	spheres.push_back({ Vector3f(2.f, 2.f, 4.f), 0.5f, Material::MIRROR, Vector3f(0.9f, 0.9f, 0.9f) });
 	// Task 7: Add a refractive sphere to your scene, and raytrace again!
-	spheres.push_back({ Vector3f(0.f, 0.f, 3.f), 0.5f, Material::REFRACTIVE, Vector3f(0.9f, 0.8f, 0.8f), 1.4f });
+	spheres.push_back({ Vector3f(0.f, 0.f, 3.f), 0.5f, Material::REFRACTIVE, Vector3f(0.9f, 0.8f, 0.8f), 2.2f });
 
 	Camera camera{
 		Vector3f(0.f, 0.f, 0.f), // position
