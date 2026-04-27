@@ -78,12 +78,12 @@ int main(int argc, char* argv[]) {
 	// Optional code: here's how to add the spot mesh to the scene, using a BVH
 	// Try enabling this and comparing it to the non-BVH version below!
 		// *** Load shaders and textures ***
-	std::vector<uint8_t> spotTexture;
-	unsigned int SpotWidth, SpotHeight;
-	lodepng::decode(spotTexture, SpotWidth, SpotHeight, "../textures/spot.png");
-	TexturedLambertianShader spotShader(&spotTexture, SpotWidth, SpotHeight); //diffuse texture only
-	Model spotModel("../models/untitled.obj");
-	scene.renderables.push_back(std::make_shared<BVHNode>(spotModel, &spotShader, 4, rotateY(M_PI)));
+	std::vector<uint8_t> TestTexture;
+	unsigned int TestWidth, TestHeight;
+	lodepng::decode(TestTexture, TestWidth, TestHeight, "../textures/w3_concrete003_abd.png");
+	TexturedLambertianShader TestShader(&TestTexture, TestWidth, TestHeight); //diffuse texture only
+	Model TestModel("../models/untitled.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(TestModel, &TestShader, 0, rotateY(M_PI)));
 
 	std::vector<uint8_t> BurstTexture;
 	unsigned int BurstWidth, BurstHeight;
@@ -94,16 +94,16 @@ int main(int argc, char* argv[]) {
 
 	// Here's how to add the mesh without using the BVH.
 	// Try comparing performance to the BVH version above.
-	//Model spotModel("../models/spot.obj");
+	//Model spotModel("../models/untitled.obj");
 	//scene.renderables.push_back(std::make_shared<Mesh>(&spotShader, &spotModel));
 	//scene.renderables.back()->modelToWorld(rotateY(M_PI / 4.0f));
 
 	// *** Add lights to scene ***
-	Eigen::Vector3f ambientLight(.1f, .1f, .1f);
+	Eigen::Vector3f ambientLight(0.1f, 0.1f, 0.1f);
 
 	std::vector<std::unique_ptr<Light>> lightSources;
 	lightSources.push_back(std::make_unique<PointLight>(Eigen::Vector3f(-1.f, 3.f, -1.f), 3.f * Eigen::Vector3f(1.f, 1.f, 1.f)));
-	lightSources.push_back(std::make_unique<DirectionalLight>(Eigen::Vector3f(0.f, -1.f, 1.f), .5f * Eigen::Vector3f(1.f, 1.f, 1.f)));
+	lightSources.push_back(std::make_unique<DirectionalLight>(Eigen::Vector3f(0.f, -1.f, 1.f), .5f * Eigen::Vector3f(3.f, 3.f, 3.f)));
 
 	// *** Render the scene ***
 

@@ -368,6 +368,7 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	lights.emplace_back(new AmbientLight(Eigen::Vector3f(0.1f, 0.1f, 0.1f)));
 
 	lights.emplace_back(new PointLight(Eigen::Vector3f(0.0f, 3.0f, 3.0f), Eigen::Vector3f(1.0f, -1.0f, -1.0f))); //Blender (-x, -y, z)?
+	lights.emplace_back(new PointLight(Eigen::Vector3f(0.0f, 25, 25), Eigen::Vector3f(3.5f, -0.0f, 3.0f))); //Blender (-x, -y, z)?
 	lights.emplace_back(new PointLight(Eigen::Vector3f(50.0f, 50.0f, 50.0f), Eigen::Vector3f(1.0f, -5.0f, 6.0f)));
 	//lights.emplace_back(new DirectionalLight(Eigen::Vector3f(5.4f, 5.4f, 5.4f), Eigen::Vector3f(55.1f * M_PI / 180.f, 0.f, 0.f)));
 	//lights.emplace_back(new SpotLight(Eigen::Vector3f(10.0f, 0.0f, 0.0f), Eigen::Vector3f(0.f, 1.f, 0.0f), Eigen::Vector3f(0, -1, 0), M_PI/8));
@@ -728,7 +729,7 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	Mesh ev_obj_w9_hideconsole_metal901 = loadMeshFile("../models/ev_obj_w9_hideconsole_metal901.obj");
 	//drawMesh(imageBuffer, zBuffer, ConsoleMesh2, m9_metalwall702_kd1, metalwall702_TexWidth, metalwall702_TexHeight, MeshTransform, worldToClip, lights, width, height);
 	drawMesh(imageBuffer, zBuffer, ev_obj_w9_hideconsole_metal901, w9_metal901_abd, w9_metal901_abd_TexWidth, w9_metal901_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
-	std::cout << "Mesh ev_obj_w9_hideconsole_metalwall702 Drawn" << std::endl;
+	std::cout << "Mesh ev_obj_w9_hideconsole_metal901 Drawn" << std::endl;
 
 	Mesh ev_obj_w9_hideconsole_metalwall702 = loadMeshFile("../models/ev_obj_w9_hideconsole_metalwall702.obj");
 	std::vector<uint8_t> m9_metalwall702_kd1;
@@ -742,6 +743,68 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	//drawMesh(imageBuffer, zBuffer, ConsoleMesh1, m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, MeshTransform, worldToClip, lights, width, height);
 	drawMesh(imageBuffer, zBuffer, ev_obj_w9_hideconsole_monitor721, m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
 	std::cout << "Mesh ev_obj_w9_hideconsole_monitor721 Drawn" << std::endl;
+
+	////////////////////////////////////////////////	DOORS		////////////////////////////////////////////////////////////
+
+	Mesh ev_obj_w9_hidedoors_metal702 = loadMeshFile("../models/ev_obj_w9_hidedoors_metal702.obj");
+	std::vector<uint8_t> w9_metal744_abd;
+	unsigned int metal744_TexWidth, metal744_TexHeight;
+	lodepng::decode(w9_metal744_abd, metal744_TexWidth, metal744_TexHeight, "../textures/w9_metal744_abd.png");
+	//drawMesh(imageBuffer, zBuffer, ConsoleMesh3, w9_metal744_abd, metal744_TexWidth, metal744_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	drawMesh(imageBuffer, zBuffer, ev_obj_w9_hidedoors_metal702, w9_metal744_abd, metal744_TexWidth, metal744_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh ev_obj_w9_hidedoors_metal702 Drawn" << std::endl;
+
+	Mesh ev_obj_w9_hidedoors_metal701 = loadMeshFile("../models/ev_obj_w9_hidedoors_metal701.obj");
+	drawMesh(imageBuffer, zBuffer, ev_obj_w9_hidedoors_metal701, w9_metal701_abd, w9_metal701_abd_TexWidth, w9_metal701_abd_TexWidth, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh ev_obj_w9_hidedoors_metal701 Drawn" << std::endl;
+
+
+	Mesh ev_obj_w9_hidedoors_metal154 = loadMeshFile("../models/ev_obj_w9_hidedoors_metal154.obj");
+	drawMesh(imageBuffer, zBuffer, ev_obj_w9_hidedoors_metal154, w9_metal154_abd, w9_metal154_abd_TexWidth, w9_metal154_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh ev_obj_w9_hidedoors_metal154 Drawn" << std::endl;
+
+	////////////////////////////////////////////////	MONITOR		////////////////////////////////////////////////////////////
+
+	Mesh ev_obj_w9_hidemonitor_metal154 = loadMeshFile("../models/ev_obj_w9_hidemonitor_metal154.obj");
+	drawMesh(imageBuffer, zBuffer, ev_obj_w9_hidemonitor_metal154, w9_metal154_abd, w9_metal154_abd_TexWidth, w9_metal154_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh ev_obj_w9_hidemonitor_metal154 Drawn" << std::endl;
+
+	Mesh ev_obj_w9_hidemonitor_metal748 = loadMeshFile("../models/ev_obj_w9_hidemonitor_metal748.obj");
+	std::vector<uint8_t> w9_metal748_abd;
+	unsigned int metal748_TexWidth, metal748_TexHeight;
+	lodepng::decode(w9_metal748_abd, metal748_TexWidth, metal748_TexHeight, "../textures/w9_metal748_abd.png");
+	drawMesh(imageBuffer, zBuffer, ev_obj_w9_hidemonitor_metal748, w9_metal748_abd, metal748_TexWidth, metal748_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh ev_obj_w9_hidemonitor_metal748 Drawn" << std::endl;
+
+	Mesh ev_obj_w9_hidemonitor_movtex = loadMeshFile("../models/ev_obj_w9_hidemonitor_movtex.obj");
+	std::vector<uint8_t> ev_movtex_dummy;
+	unsigned int ev_movtex_dummy_TexWidth, ev_movtex_dummy_TexHeight;
+	lodepng::decode(ev_movtex_dummy, ev_movtex_dummy_TexWidth, ev_movtex_dummy_TexHeight, "../textures/ev_movtex_dummy.png");
+	drawMesh(imageBuffer, zBuffer, ev_obj_w9_hidemonitor_movtex, ev_movtex_dummy, ev_movtex_dummy_TexWidth, ev_movtex_dummy_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh ev_obj_w9_hidemonitor_movtex Drawn" << std::endl;
+
+	////////////////////////////////////////////////	AMY		////////////////////////////////////////////////////////////
+
+	Mesh Amy_Skin = loadMeshFile("../models/Amy_Skin.obj");
+	std::vector<uint8_t> chr_amy_skin_abd;
+	unsigned int chr_amy_skin_abd_TexWidth, chr_amy_skin_abd_TexHeight;
+	lodepng::decode(chr_amy_skin_abd, chr_amy_skin_abd_TexWidth, chr_amy_skin_abd_TexHeight, "../textures/chr_amy_skin_abd.png");
+	drawMesh(imageBuffer, zBuffer, Amy_Skin, chr_amy_skin_abd, chr_amy_skin_abd_TexWidth, chr_amy_skin_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Amy_Skin Drawn" << std::endl;
+
+	Mesh Amy_Dress = loadMeshFile("../models/Amy_Dress.obj");
+	std::vector<uint8_t> chr_amy_dress_abd;
+	unsigned int chr_amy_dress_abd_TexWidth, chr_amy_dress_abd_TexHeight;
+	lodepng::decode(chr_amy_dress_abd, chr_amy_dress_abd_TexWidth, chr_amy_dress_abd_TexHeight, "../textures/chr_amy_dress_abd.png");
+	drawMesh(imageBuffer, zBuffer, Amy_Dress, chr_amy_dress_abd, chr_amy_dress_abd_TexWidth, chr_amy_dress_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Amy_Dress Drawn" << std::endl;
+
+	Mesh Amy_Cloth = loadMeshFile("../models/Amy_Cloth.obj");
+	std::vector<uint8_t> chr_amy_cloth_abd;
+	unsigned int chr_amy_cloth_abd_TexWidth, chr_amy_cloth_abd_TexHeight;
+	lodepng::decode(chr_amy_cloth_abd, chr_amy_cloth_abd_TexWidth, chr_amy_cloth_abd_TexHeight, "../textures/chr_amy_cloth_abd.png");
+	drawMesh(imageBuffer, zBuffer, Amy_Cloth, chr_amy_cloth_abd, chr_amy_cloth_abd_TexWidth, chr_amy_cloth_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Amy_Cloth Drawn" << std::endl;
 
 	std::cout << "All Meshes Drawn " << std::endl;
 
