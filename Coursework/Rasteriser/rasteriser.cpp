@@ -235,7 +235,7 @@ void drawTriangle(std::vector<uint8_t>& image, int width, int height,
 			//color = (viewDir + Eigen::Vector3f::Ones()) / 2;
 			//color = (normP + Eigen::Vector3f::Ones()) / 2;
 
-			color = (normP + Eigen::Vector3f::Ones()) * 0.5f; // Temporary - set colour to be based on normal, so we can check that interpolation is working correctly.
+			//color = (normP + Eigen::Vector3f::Ones()) * 0.5f; // Temporary - set colour to be based on normal, so we can check that interpolation is working correctly.
 
 			Color c;
 			// Gamma-correcting colours.
@@ -360,12 +360,15 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	Eigen::Matrix4f worldToCamera = cameraToWorld.inverse();
 	// Set up worldToClip, using the projection and worldToCamera matrices
 	Eigen::Matrix4f worldToClip = projection * worldToCamera;
-	
+
+	////////////////////////////////////////////////	LIGHTS		////////////////////////////////////////////////////////////
+
 	std::vector<std::unique_ptr<Light>> lights;
 	// I've already added an ambient light for you!
 	lights.emplace_back(new AmbientLight(Eigen::Vector3f(0.1f, 0.1f, 0.1f)));
 
-	lights.emplace_back(new PointLight(Eigen::Vector3f(0.0f, 3.0f, 3.0f), Eigen::Vector3f(1.0f, -1.0f, -1.0f))); //Blender (-x, z, -y)
+	lights.emplace_back(new PointLight(Eigen::Vector3f(0.0f, 3.0f, 3.0f), Eigen::Vector3f(1.0f, -1.0f, -1.0f))); //Blender (-x, -y, z)?
+	lights.emplace_back(new PointLight(Eigen::Vector3f(50.0f, 50.0f, 50.0f), Eigen::Vector3f(1.0f, -5.0f, 6.0f)));
 	//lights.emplace_back(new DirectionalLight(Eigen::Vector3f(5.4f, 5.4f, 5.4f), Eigen::Vector3f(55.1f * M_PI / 180.f, 0.f, 0.f)));
 	//lights.emplace_back(new SpotLight(Eigen::Vector3f(10.0f, 0.0f, 0.0f), Eigen::Vector3f(0.f, 1.f, 0.0f), Eigen::Vector3f(0, -1, 0), M_PI/8));
 	
@@ -373,6 +376,15 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	MeshTransform = translationMatrix(Eigen::Vector3f(-0.0f, 0.0f, 0.f)) * rotateYMatrix(M_PI);
 
 	////////////////////////////////////////////////	w9a02		////////////////////////////////////////////////////////////
+
+	Mesh w9a02_brick02 = loadMeshFile("../models/w9a02_brick02.obj"); //BROKEN RENDERERING???
+	std::vector<uint8_t> w3_brick001_abd;
+	unsigned int w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight;
+	lodepng::decode(w3_brick001_abd, w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight, "../textures/w3_brick001_abd.png");
+	//drawMesh(imageBuffer, zBuffer, w9a02_concrete03, w3_concrete003_abd, concrete003_TexWidth, concrete003_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	drawMesh(imageBuffer, zBuffer, w9a02_brick02, w3_brick001_abd, w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh w9a02_brick02 Drawn" << std::endl;
+
 
 	Mesh w9a02_concrete03 = loadMeshFile("../models/w9a02_concrete03.obj"); //BROKEN RENDERERING???
 	std::vector<uint8_t> w3_concrete003_abd;
@@ -389,6 +401,22 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	//drawMesh(imageBuffer, zBuffer, w9a02_debris02, w3_debris002_abd_a, w3_debris002_abd_a_TexWidth, w3_debris002_abd_a_TexHeight, MeshTransform, worldToClip, lights, width, height);
 	drawMesh(imageBuffer, zBuffer, w9a02_debris02, w3_debris002_abd_a, w3_debris002_abd_a_TexWidth, w3_debris002_abd_a_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
 	std::cout << "Mesh w9a02_debris02 Drawn" << std::endl;
+
+	Mesh w9a02_debris03 = loadMeshFile("../models/w9a02_debris03.obj");
+	std::vector<uint8_t> w3_wall001_abd;
+	unsigned int w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight;
+	lodepng::decode(w3_wall001_abd, w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight, "../textures/w3_wall001_abd.png");
+	//drawMesh(imageBuffer, zBuffer, w9a02_debris02, w3_debris002_abd_a, w3_debris002_abd_a_TexWidth, w3_debris002_abd_a_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	drawMesh(imageBuffer, zBuffer, w9a02_debris03, w3_wall001_abd, w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh w9a02_debris03 Drawn" << std::endl;
+
+	Mesh w9a02_fy1_wood04 = loadMeshFile("../models/w9a02_fy1_wood04.obj");
+	std::vector<uint8_t> w3_wood304_abd;
+	unsigned int w3_wood304_abd_TexWidth, w3_wood304_abd_TexHeight;
+	lodepng::decode(w3_wood304_abd, w3_wood304_abd_TexWidth, w3_wood304_abd_TexHeight, "../textures/w3_wood304_abd.png");
+	//drawMesh(imageBuffer, zBuffer, w9a02_debris02, w3_debris002_abd_a, w3_debris002_abd_a_TexWidth, w3_debris002_abd_a_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	drawMesh(imageBuffer, zBuffer, w9a02_fy1_wood04, w3_wood304_abd, w3_wood304_abd_TexWidth, w3_wood304_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh w9a02_fy1_wood04 Drawn" << std::endl;
 
 	Mesh w9a02_drum01 = loadMeshFile("../models/w9a02_drum01.obj"); //CAUSES CRASH??
 	std::vector<uint8_t> w3_mat_ym2_drum01;
@@ -567,9 +595,6 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	std::cout << "Mesh w9a02_monitor721 Drawn" << std::endl;
 
 	Mesh w9a02_my1_brick01 = loadMeshFile("../models/w9a02_my1_brick01.obj");
-	std::vector<uint8_t> w3_brick001_abd;
-	unsigned int w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight;
-	lodepng::decode(w3_brick001_abd, w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight, "../textures/w3_brick001_abd.png");
 	//drawMesh(imageBuffer, zBuffer, w9a02_my1_brick01, w3_brick001_abd, w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
 	drawMesh(imageBuffer, zBuffer, w9a02_my1_brick01, w3_brick001_abd, w3_brick001_abd_TexWidth, w3_brick001_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
 	std::cout << "Mesh w9a02_my1_brick01 Drawn" << std::endl;
@@ -591,9 +616,6 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	std::cout << "Mesh w9a02_my1_iron01 Drawn" << std::endl;
 
 	Mesh w9a02_my1_wall01 = loadMeshFile("../models/w9a02_my1_wall01.obj");
-	std::vector<uint8_t> w3_wall001_abd;
-	unsigned int w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight;
-	lodepng::decode(w3_wall001_abd, w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight, "../textures/w3_wall001_abd.png");
 	//drawMesh(imageBuffer, zBuffer, w9a02_my1_wall01, w3_wall001_abd, w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight, MeshTransform, worldToClip, lights, width, height);
 	drawMesh(imageBuffer, zBuffer, w9a02_my1_wall01, w3_wall001_abd, w3_wall001_abd_TexWidth, w3_wall001_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
 	std::cout << "Mesh w9a02_my1_wall01 Drawn" << std::endl;

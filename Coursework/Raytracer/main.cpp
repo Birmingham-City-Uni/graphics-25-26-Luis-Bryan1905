@@ -63,16 +63,12 @@ int main(int argc, char* argv[]) {
 		aqua(0.f, .8f, .8f),
 		lavender(178.f / 255.f, 164.f / 255.f, 212.f / 255.f);
 
-	// *** Load shaders and textures ***
-	std::vector<uint8_t> spotTexture;
-	unsigned int width, height;
-	lodepng::decode(spotTexture, width, height, "../models/spot.png");
+
 
 	LambertianShader redLambertianShader(red);
 	PhongShader bluePlasticShader(blue, Eigen::Vector3f(1.f, 1.f, 1.f), 100.f);
 	LambertianShader aquaLambertianShader(aqua);
 	LambertianShader lavenderLambertianShader(lavender);
-	TexturedLambertianShader spotShader(&spotTexture, width, height);
 	MirrorShader mirrorShader;
 	TexCoordTestShader texCoordTestShader;
 
@@ -81,8 +77,20 @@ int main(int argc, char* argv[]) {
 
 	// Optional code: here's how to add the spot mesh to the scene, using a BVH
 	// Try enabling this and comparing it to the non-BVH version below!
-	Model spotModel("../models/spot.obj");
-	scene.renderables.push_back(std::make_shared<BVHNode>(spotModel, &spotShader, 4, rotateY(M_PI / 4.0f)));
+		// *** Load shaders and textures ***
+	std::vector<uint8_t> spotTexture;
+	unsigned int SpotWidth, SpotHeight;
+	lodepng::decode(spotTexture, SpotWidth, SpotHeight, "../textures/spot.png");
+	TexturedLambertianShader spotShader(&spotTexture, SpotWidth, SpotHeight); //diffuse texture only
+	Model spotModel("../models/untitled.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(spotModel, &spotShader, 4, rotateY(M_PI)));
+
+	std::vector<uint8_t> BurstTexture;
+	unsigned int BurstWidth, BurstHeight;
+	lodepng::decode(BurstTexture, BurstWidth, BurstHeight, "../textures/ggt_br1_body_abd.png");
+	TexturedLambertianShader BurstShader(&BurstTexture, BurstWidth, BurstHeight); //diffuse texture only
+	Model BurstModel("../models/Burst.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(BurstModel, &BurstShader, 4, rotateY(M_PI))); // model, 
 
 	// Here's how to add the mesh without using the BVH.
 	// Try comparing performance to the BVH version above.
