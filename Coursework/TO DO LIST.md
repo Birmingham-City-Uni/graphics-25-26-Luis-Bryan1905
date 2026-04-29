@@ -9,7 +9,6 @@
 **RASTERISER:**
 
 * Add Characters
-* Emissive Material?
 * Light shadowing?
 * fix Broken Meshes
 * Add Lights?
@@ -23,6 +22,4 @@
 * UV Issue?
 * BVH work?
 * Emissive Material?
-
-
 
