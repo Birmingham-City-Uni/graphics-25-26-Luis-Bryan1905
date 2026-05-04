@@ -876,6 +876,97 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	drawMesh(imageBuffer, zBuffer, Silver_light, chr_silver_light_abd, chr_silver_light_abd_TexWidth, chr_silver_light_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, EMISSIVE, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
 	std::cout << "Mesh Silver_light Drawn" << std::endl;
 
+
+	////////////////////////////////////////////////	CHARMY	////////////////////////////////////////////////////////////
+
+	Mesh Charmy_black = loadMeshFile("../models/charmy_black.obj");
+	std::vector<uint8_t> chr_charmy_black_abd;
+	unsigned int chr_charmy_black_abd_TexWidth, chr_charmy_black_abd_TexHeight;
+	lodepng::decode(chr_charmy_black_abd, chr_charmy_black_abd_TexWidth, chr_charmy_black_abd_TexHeight, "../textures/chr_charmy_black_abd.png");
+	drawMesh(imageBuffer, zBuffer, Charmy_black, chr_charmy_black_abd, chr_charmy_black_abd_TexWidth, chr_charmy_black_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Charmy_black Drawn" << std::endl;
+
+	Mesh Charmy_cloth = loadMeshFile("../models/charmy_cloth.obj");
+	std::vector<uint8_t> chr_charmy_cloth_abd;
+	unsigned int chr_charmy_cloth_abd_TexWidth, chr_charmy_cloth_abd_TexHeight;
+	lodepng::decode(chr_charmy_cloth_abd, chr_charmy_cloth_abd_TexWidth, chr_charmy_cloth_abd_TexHeight, "../textures/chr_charmy_cloth_abd.png");
+	drawMesh(imageBuffer, zBuffer, Charmy_cloth, chr_charmy_cloth_abd, chr_charmy_cloth_abd_TexWidth, chr_charmy_cloth_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Charmy_cloth Drawn" << std::endl;
+
+	Mesh Charmy_skin = loadMeshFile("../models/charmy_skin.obj");
+	std::vector<uint8_t> chr_charmy_skin_abd;
+	unsigned int chr_charmy_skin_abd_TexWidth, chr_charmy_skin_abd_TexHeight;
+	lodepng::decode(chr_charmy_skin_abd, chr_charmy_skin_abd_TexWidth, chr_charmy_skin_abd_TexHeight, "../textures/chr_charmy_skin_abd.png");
+	drawMesh(imageBuffer, zBuffer, Charmy_skin, chr_charmy_skin_abd, chr_charmy_skin_abd_TexWidth, chr_charmy_skin_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Charmy_skin Drawn" << std::endl;
+
+	////////////////////////////////////////////////	ESPIO	////////////////////////////////////////////////////////////
+
+	Mesh Espio_body = loadMeshFile("../models/espio_body.obj");
+	std::vector<uint8_t> chr_espio_body_abd;
+	unsigned int chr_espio_body_abd_TexWidth, chr_espio_body_abd_TexHeight;
+	lodepng::decode(chr_espio_body_abd, chr_espio_body_abd_TexWidth, chr_espio_body_abd_TexHeight, "../textures/chr_espio_skin_abd.png");
+	drawMesh(imageBuffer, zBuffer, Espio_body, chr_espio_body_abd, chr_espio_body_abd_TexWidth, chr_espio_body_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Espio_body Drawn" << std::endl;
+
+	Mesh Espio_cloth = loadMeshFile("../models/espio_cloth.obj");
+	std::vector<uint8_t> chr_espio_cloth_abd;
+	unsigned int chr_espio_cloth_abd_TexWidth, chr_espio_cloth_abd_TexHeight;
+	lodepng::decode(chr_espio_cloth_abd, chr_espio_cloth_abd_TexWidth, chr_espio_cloth_abd_TexHeight, "../textures/chr_espio_cloth_abd.png");
+	drawMesh(imageBuffer, zBuffer, Espio_cloth, chr_espio_cloth_abd, chr_espio_cloth_abd_TexWidth, chr_espio_cloth_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Espio_cloth Drawn" << std::endl;
+
+	Mesh Espio_skin = loadMeshFile("../models/espio_skin.obj");
+	std::vector<uint8_t> chr_espio_skin_abd;
+	unsigned int chr_espio_skin_abd_TexWidth, chr_espio_skin_abd_TexHeight;
+	lodepng::decode(chr_espio_skin_abd, chr_espio_skin_abd_TexWidth, chr_espio_skin_abd_TexHeight, "../textures/chr_espio_skin_abd.png");
+	drawMesh(imageBuffer, zBuffer, Espio_skin, chr_espio_skin_abd, chr_espio_skin_abd_TexWidth, chr_espio_skin_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Espio_skin Drawn" << std::endl;
+
+	Mesh Espio_leather = loadMeshFile("../models/espio_leather.obj");
+	std::vector<uint8_t> chr_espio_leather_abd;
+	unsigned int chr_espio_leather_abd_TexWidth, chr_espio_leather_abd_TexHeight;
+	lodepng::decode(chr_espio_leather_abd, chr_espio_leather_abd_TexWidth, chr_espio_leather_abd_TexHeight, "../textures/chr_espio_parts_abd.png");
+	drawMesh(imageBuffer, zBuffer, Espio_leather, chr_espio_leather_abd, chr_espio_leather_abd_TexWidth, chr_espio_leather_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Espio_leather Drawn" << std::endl;
+
+	Mesh Espio_eye = loadMeshFile("../models/espio_eye.obj");
+	std::vector<uint8_t> chr_espio_eye_abd;
+	unsigned int chr_espio_eye_abd_TexWidth, chr_espio_eye_abd_TexHeight;
+	lodepng::decode(chr_espio_eye_abd, chr_espio_eye_abd_TexWidth, chr_espio_eye_abd_TexHeight, "../textures/chr_espio_eye_abd.png");
+	drawMesh(imageBuffer, zBuffer, Espio_eye, chr_espio_eye_abd, chr_espio_eye_abd_TexWidth, chr_espio_eye_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Espio_eye Drawn" << std::endl;
+
+	////////////////////////////////////////////////	VECTOR	////////////////////////////////////////////////////////////
+
+	Mesh Vector_cloth = loadMeshFile("../models/vector_cloth.obj");
+	std::vector<uint8_t> chr_vector_cloth_abd;
+	unsigned int chr_vector_cloth_abd_TexWidth, chr_vector_cloth_abd_TexHeight;
+	lodepng::decode(chr_vector_cloth_abd, chr_vector_cloth_abd_TexWidth, chr_vector_cloth_abd_TexHeight, "../textures/chr_vector_cloth_abd.png");
+	drawMesh(imageBuffer, zBuffer, Vector_cloth, chr_vector_cloth_abd, chr_vector_cloth_abd_TexWidth, chr_vector_cloth_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Vector_cloth Drawn" << std::endl;
+
+	Mesh Vector_skin = loadMeshFile("../models/vector_skin.obj");
+	std::vector<uint8_t> chr_vector_skin_abd;
+	unsigned int chr_vector_skin_abd_TexWidth, chr_vector_skin_abd_TexHeight;
+	lodepng::decode(chr_vector_skin_abd, chr_vector_skin_abd_TexWidth, chr_vector_skin_abd_TexHeight, "../textures/chr_vector_skin_abd.png");
+	drawMesh(imageBuffer, zBuffer, Vector_skin, chr_vector_skin_abd, chr_vector_skin_abd_TexWidth, chr_vector_skin_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Vector_skin Drawn" << std::endl;
+
+	Mesh Vector_leather = loadMeshFile("../models/vector_leather.obj");
+	std::vector<uint8_t> chr_vector_leather_abd;
+	unsigned int chr_vector_leather_abd_TexWidth, chr_vector_leather_abd_TexHeight;
+	lodepng::decode(chr_vector_leather_abd, chr_vector_leather_abd_TexWidth, chr_vector_leather_abd_TexHeight, "../textures/chr_vector_parts_abd.png");
+	drawMesh(imageBuffer, zBuffer, Vector_leather, chr_vector_leather_abd, chr_vector_leather_abd_TexWidth, chr_vector_leather_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Vector_leather Drawn" << std::endl;
+
+	Mesh Vector_eye = loadMeshFile("../models/vector_eye.obj");
+	std::vector<uint8_t> chr_vector_eye_abd;
+	unsigned int chr_vector_eye_abd_TexWidth, chr_vector_eye_abd_TexHeight;
+	lodepng::decode(chr_vector_eye_abd, chr_vector_eye_abd_TexWidth, chr_vector_eye_abd_TexHeight, "../textures/chr_vector_eye_abd.png");
+	drawMesh(imageBuffer, zBuffer, Vector_eye, chr_vector_eye_abd, chr_vector_eye_abd_TexWidth, chr_vector_eye_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, mode, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Vector_eye Drawn" << std::endl;
+
 	////////////////////////////////////////////////	LAST: TRANSPARENT MESHES		////////////////////////////////////////////////////////////
 
 	Mesh ev_obj_w9_hideconsole_glass740 = loadMeshFile("../models/ev_obj_w9_hideconsole_glass740.obj");
@@ -899,6 +990,18 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	drawMesh(imageBuffer, zBuffer, ev_obj_w9_hideconsole_monitor721, m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, EMISSIVE, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
 	std::cout << "Mesh ev_obj_w9_hideconsole_monitor721 Drawn" << std::endl;
 
+	Mesh Charmy_Wing = loadMeshFile("../models/Charmy_Wing.obj");
+	//drawMesh(imageBuffer, zBuffer, w9a02_monitor721, m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	drawMesh(imageBuffer, zBuffer, Charmy_Wing, chr_charmy_skin_abd, chr_charmy_skin_abd_TexWidth, chr_charmy_skin_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, EMISSIVE, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Charmy_Wing Drawn" << std::endl;
+
+	Mesh Charmy_Lenz = loadMeshFile("../models/Charmy_Lenz.obj");
+	std::vector<uint8_t> chr_charmy_lenz_abd;
+	unsigned int chr_charmy_lenz_abd_TexWidth, chr_charmy_lenz_abd_TexHeight;
+	lodepng::decode(chr_charmy_lenz_abd, chr_charmy_lenz_abd_TexWidth, chr_charmy_lenz_abd_TexHeight, "../textures/chr_charmy_lenz_abd.png");
+	//drawMesh(imageBuffer, zBuffer, w9a02_monitor721, m9_monitor721_kd1, monitor721_TexWidth, monitor721_TexHeight, MeshTransform, worldToClip, lights, width, height);
+	drawMesh(imageBuffer, zBuffer, Charmy_Lenz, chr_charmy_lenz_abd, chr_charmy_lenz_abd_TexWidth, chr_charmy_lenz_abd_TexHeight, Eigen::Vector3f::Ones() * 1.0f, specularExponent, EMISSIVE, camWorldPos, MeshTransform, worldToCamera, projection, lights, width, height);
+	std::cout << "Mesh Charmy_Lenz Drawn" << std::endl;
 
 	std::cout << "All Meshes Drawn " << std::endl;
 

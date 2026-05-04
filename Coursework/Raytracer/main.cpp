@@ -13,6 +13,7 @@
 #include "DirectionalLight.hpp"
 #include "LambertianShader.hpp"
 #include "TexturedLambertianShader.hpp"
+#include "EmissionShader.hpp"
 #include "PhongShader.hpp"
 #include "MirrorShader.hpp"
 #include "TexCoordTestShader.hpp"
@@ -71,6 +72,7 @@ int main(int argc, char* argv[]) {
 	LambertianShader lavenderLambertianShader(lavender);
 	MirrorShader mirrorShader;
 	TexCoordTestShader texCoordTestShader;
+	EmissionShader emissionShader(nullptr, 0, 0);
 
 	// *** Set up scene ***
 	Scene scene;
@@ -78,35 +80,84 @@ int main(int argc, char* argv[]) {
 	// Optional code: here's how to add the spot mesh to the scene, using a BVH
 	// Try enabling this and comparing it to the non-BVH version below!
 		// *** Load shaders and textures ***
-	std::vector<uint8_t> TestTexture;
-	unsigned int TestWidth, TestHeight;
-	lodepng::decode(TestTexture, TestWidth, TestHeight, "../textures/w3_concrete003_abd.png");
-	TexturedLambertianShader TestShader(&TestTexture, TestWidth, TestHeight); //diffuse texture only
-	Model TestModel("../models/untitled.obj");
-	scene.renderables.push_back(std::make_shared<BVHNode>(TestModel, &TestShader, 0, rotateY(M_PI)));
 
-	std::vector<uint8_t> BurstTexture;
-	unsigned int BurstWidth, BurstHeight;
-	lodepng::decode(BurstTexture, BurstWidth, BurstHeight, "../textures/ggt_br1_body_abd.png");
-	TexturedLambertianShader BurstShader(&BurstTexture, BurstWidth, BurstHeight); //diffuse texture only
-	Model BurstModel("../models/Burst.obj");
-	scene.renderables.push_back(std::make_shared<BVHNode>(BurstModel, &BurstShader, 4, rotateY(M_PI))); // model, 
+	//std::vector<uint8_t> BurstTexture;
+	//unsigned int BurstWidth, BurstHeight;
+	//lodepng::decode(BurstTexture, BurstWidth, BurstHeight, "../textures/ggt_br1_body_abd.png");
+	//TexturedLambertianShader BurstShader(&BurstTexture, BurstWidth, BurstHeight); //diffuse texture only
+	//Model BurstModel("../models/Burst.obj");
+	//scene.renderables.push_back(std::make_shared<BVHNode>(BurstModel, &BurstShader, 4, rotateY(M_PI))); // model, 
 
-	// Here's how to add the mesh without using the BVH.
+	//std::vector<uint8_t> TestTexture;
+	//unsigned int TestWidth, TestHeight;
+	//lodepng::decode(TestTexture, TestWidth, TestHeight, "../textures/w3_brick201_abd.PNG");
+	//TexturedLambertianShader TestShader(&TestTexture, TestWidth, TestHeight); //diffuse texture only
+	//Model TestModel("../models/untitled.obj");
+	//scene.renderables.push_back(std::make_shared<BVHNode>(TestModel, &TestShader, 0, rotateY(M_PI)));
+
+		// Here's how to add the mesh without using the BVH.
 	// Try comparing performance to the BVH version above.
 	//Model spotModel("../models/untitled.obj");
 	//scene.renderables.push_back(std::make_shared<Mesh>(&spotShader, &spotModel));
 	//scene.renderables.back()->modelToWorld(rotateY(M_PI / 4.0f));
 
+	////////////////////////////////////////////////	w9a02		////////////////////////////////////////////////////////////
+
+	std::vector<uint8_t> w3_concrete003_abd;
+	unsigned int w3_concrete003_abd_Width, w3_concrete003_abd_Height;
+	lodepng::decode(w3_concrete003_abd, w3_concrete003_abd_Width, w3_concrete003_abd_Height, "../textures/w3_concrete003_abd.PNG");
+	TexturedLambertianShader w9a02_concrete03_Shader(&w3_concrete003_abd, w3_concrete003_abd_Width, w3_concrete003_abd_Height); //diffuse texture only
+	Model w9a02_concrete03("../models/w9a02_concrete03.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_concrete03, &w9a02_concrete03_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w9_metal154_abd;
+	unsigned int w9_metal154_abd_Width, w9_metal154_abd_Height;
+	lodepng::decode(w9_metal154_abd, w9_metal154_abd_Width, w9_metal154_abd_Height, "../textures/w9_metal154_abd.PNG");
+	TexturedLambertianShader w9a02_metal154_Shader(&w9_metal154_abd, w9_metal154_abd_Width, w9_metal154_abd_Height); //diffuse texture only
+	Model w9a02_metal154("../models/w9a02_metal154.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal154, &w9a02_metal154_Shader, 0, rotateY(M_PI)));
+
+	////////////////////////////////////////////////	CONSOLE		////////////////////////////////////////////////////////////
+	 
+	std::vector<uint8_t> w9_glass740_abd_a;
+	unsigned int w9_glass740_abd_a_Width, w9_glass740_abd_a_Height;
+	lodepng::decode(w9_glass740_abd_a, w9_glass740_abd_a_Width, w9_glass740_abd_a_Height, "../textures/w9_glass740_abd_a.PNG");
+	EmissionShader ev_obj_w9_hideconsole_glass740_Shader(&w9_glass740_abd_a, w9_glass740_abd_a_Width, w9_glass740_abd_a_Height); //diffuse texture only
+	Model ev_obj_w9_hideconsole_glass740("../models/ev_obj_w9_hideconsole_glass740.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_glass740, &ev_obj_w9_hideconsole_glass740_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w9_metal901_abd;
+	unsigned int w9_metal901_abd_Width, w9_metal901_abd_Height;
+	lodepng::decode(w9_metal901_abd, w9_metal901_abd_Width, w9_metal901_abd_Height, "../textures/w9_metal901_abd.PNG");
+	EmissionShader ev_obj_w9_hideconsole_metal901_Shader(&w9_metal901_abd, w9_metal901_abd_Width, w9_metal901_abd_Height); //diffuse texture only
+	Model ev_obj_w9_hideconsole_metal901("../models/ev_obj_w9_hideconsole_metal901.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_metal901, &ev_obj_w9_hideconsole_metal901_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w9_monitor720_abd;
+	unsigned int w9_monitor720_abd_Width, w9_monitor720_abd_Height;
+	lodepng::decode(w9_monitor720_abd, w9_monitor720_abd_Width, w9_monitor720_abd_Height, "../textures/w9_monitor720_abd.PNG");
+	EmissionShader ev_obj_w9_hideconsole_monitor721_Shader(&w9_monitor720_abd, w9_monitor720_abd_Width, w9_monitor720_abd_Height); //diffuse texture only
+	Model ev_obj_w9_hideconsole_monitor721("../models/ev_obj_w9_hideconsole_monitor721.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_monitor721, &ev_obj_w9_hideconsole_monitor721_Shader, 0, rotateY(M_PI)));
+	
+	////////////////////////////////////////////////	DOORS		////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////	MONITOR		////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////	AMY	    	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////	KNUCKLES	////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////	SILVER		////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////	CHARMY		////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////	ESPIO		////////////////////////////////////////////////////////////
+	////////////////////////////////////////////////	VECTOR		////////////////////////////////////////////////////////////
+
+
+	////////////////////////////////////////////////	LIGHTS		////////////////////////////////////////////////////////////
 	// *** Add lights to scene ***
 	Eigen::Vector3f ambientLight(0.1f, 0.1f, 0.1f);
-
 	std::vector<std::unique_ptr<Light>> lightSources;
 	lightSources.push_back(std::make_unique<PointLight>(Eigen::Vector3f(-1.f, 3.f, -1.f), 3.f * Eigen::Vector3f(1.f, 1.f, 1.f)));
 	lightSources.push_back(std::make_unique<DirectionalLight>(Eigen::Vector3f(0.f, -1.f, 1.f), .5f * Eigen::Vector3f(3.f, 3.f, 3.f)));
 
 	// *** Render the scene ***
-
 	// Shuffling the scanline order gets better CPU usage between threads
 	// when some lines take longer to render than others.
 	std::vector<unsigned int> scanlines(pixHeight);
