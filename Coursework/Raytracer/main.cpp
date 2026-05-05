@@ -138,6 +138,19 @@ int main(int argc, char* argv[]) {
 	Model w9a02_fy1_wood04("../models/w9a02_fy1_wood04.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_fy1_wood04, &w9a02_fy1_wood04_Shader, 0, rotateY(M_PI)));
 
+	std::vector<uint8_t> w3_iron402_abd;
+	unsigned int w3_iron402_abd_Width, w3_iron402_abd_Height;
+	lodepng::decode(w3_iron402_abd, w3_iron402_abd_Width, w3_iron402_abd_Height, "../textures/w3_iron402_abd.PNG");
+	TexturedLambertianShader w9a02_iron02_Shader(&w3_iron402_abd, w3_iron402_abd_Width, w3_iron402_abd_Height); //diffuse texture only
+	Model w9a02_iron02("../models/w9a02_iron02.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_iron02, &w9a02_iron02_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w3_brick201_abd;
+	unsigned int w3_brick201_abd_Width, w3_brick201_abd_Height;
+	lodepng::decode(w3_brick201_abd, w3_brick201_abd_Width, w3_brick201_abd_Height, "../textures/w3_brick201_abd.PNG");
+	TexturedLambertianShader w9a02_km1_brick01_Shader(&w3_brick201_abd, w3_brick201_abd_Width, w3_brick201_abd_Height); //diffuse texture only
+	Model w9a02_km1_brick01("../models/w9a02_km1_brick01.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_km1_brick01, &w9a02_km1_brick01_Shader, 0, rotateY(M_PI)));
 
 	std::vector<uint8_t> w3_concrete201_abd;
 	unsigned int w3_concrete201_abd_Width, w3_concrete201_abd_Height;
@@ -145,6 +158,13 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_km1_concrete01_Shader(&w3_concrete201_abd, w3_concrete201_abd_Width, w3_concrete201_abd_Height); //diffuse texture only
 	Model w9a02_km1_concrete01("../models/w9a02_km1_concrete01.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_km1_concrete01, &w9a02_km1_concrete01_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w3_wall201_abd;
+	unsigned int w3_wall201_abd_Width, w3_wall201_abd_Height;
+	lodepng::decode(w3_wall201_abd, w3_wall201_abd_Width, w3_wall201_abd_Height, "../textures/w3_wall201_abd.PNG");
+	TexturedLambertianShader w9a02_km1_wall01_Shader(&w3_wall201_abd, w3_wall201_abd_Width, w3_wall201_abd_Height); //diffuse texture only
+	Model w9a02_km1_wall01("../models/w9a02_km1_wall01.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_km1_wall01, &w9a02_km1_wall01_Shader, 0, rotateY(M_PI)));
 
 	std::vector<uint8_t> w9_metal154_abd;
 	unsigned int w9_metal154_abd_Width, w9_metal154_abd_Height;
