@@ -7,10 +7,10 @@
     "clearColor": [0,0,0,255],
 
     "cameraPos": [-2.13726, 2.38136, -3.87966],
-    "cameraForward": [0.5808543, -0.15, 1.0],
-    "cameraUp": [0.0, 1.0, 0.0],
+    "cameraForward": [0.5122, -0.3590, 0.7803],
+    "cameraUp": [0.1970, 0.9333, 0.3001],
 
-    "cameraFov": 0.961,
+    "cameraFov": 0.5725,
 
     "shuffleScanlines": true,
 

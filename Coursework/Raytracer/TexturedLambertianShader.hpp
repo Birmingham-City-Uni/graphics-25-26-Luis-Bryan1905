@@ -29,10 +29,23 @@ public:
 		Eigen::Vector2f tex = hitInfo.texCoords;
 		int pixX = static_cast<int>(tex.x() * texWidth_);
 		int pixY = static_cast<int>((1.f - tex.y()) * texHeight_);
-		pixX = std::max(pixX, 0);
+	/*	pixX = std::max(pixX, 0);
 		pixY = std::max(pixY, 0);
 		pixX = std::min(pixX, texWidth_ - 1);
-		pixY = std::min(pixY, texHeight_ - 1);
+		pixY = std::min(pixY, texHeight_ - 1);*/
+
+		pixX = pixX % texWidth_ - 1;
+		pixY = pixY % texHeight_ - 1;
+
+		if (pixX < 0)
+		{
+			pixX += texWidth_;
+		}
+
+		if (pixY < 0)
+		{
+			pixY += texHeight_;
+		}
 
 		albedo.x() = static_cast<float>((*albedoTexture_)[(pixX + texWidth_ * pixY) * 4 + 0]) / 255.f;
 		albedo.y() = static_cast<float>((*albedoTexture_)[(pixX + texWidth_*pixY)*4 + 1]) / 255.f;

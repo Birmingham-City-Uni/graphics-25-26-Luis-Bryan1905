@@ -103,6 +103,13 @@ int main(int argc, char* argv[]) {
 
 	////////////////////////////////////////////////	w9a02		////////////////////////////////////////////////////////////
 
+	std::vector<uint8_t> w3_brick001_abd;
+	unsigned int w3_brick001_abd_Width, w3_brick001_abd_Height;
+	lodepng::decode(w3_brick001_abd, w3_brick001_abd_Width, w3_brick001_abd_Height, "../textures/w3_brick001_abd.PNG");
+	TexturedLambertianShader w9a02_brick02_Shader(&w3_brick001_abd, w3_brick001_abd_Width, w3_brick001_abd_Height); //diffuse texture only
+	Model w9a02_brick02("../models/w9a02_brick02.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_brick02, &w9a02_brick02_Shader, 0, rotateY(M_PI)));
+
 	std::vector<uint8_t> w3_concrete003_abd;
 	unsigned int w3_concrete003_abd_Width, w3_concrete003_abd_Height;
 	lodepng::decode(w3_concrete003_abd, w3_concrete003_abd_Width, w3_concrete003_abd_Height, "../textures/w3_concrete003_abd.PNG");
@@ -110,12 +117,48 @@ int main(int argc, char* argv[]) {
 	Model w9a02_concrete03("../models/w9a02_concrete03.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_concrete03, &w9a02_concrete03_Shader, 0, rotateY(M_PI)));
 
+	std::vector<uint8_t> w3_wall001_abd;
+	unsigned int w3_wall001_abd_Width, w3_wall001_abd_Height;
+	lodepng::decode(w3_wall001_abd, w3_wall001_abd_Width, w3_wall001_abd_Height, "../textures/w3_wall001_abd.PNG");
+	TexturedLambertianShader w9a02_debris03_Shader(&w3_wall001_abd, w3_wall001_abd_Width, w3_wall001_abd_Height); //diffuse texture only
+	Model w9a02_debris03("../models/w9a02_debris03.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_debris03, &w9a02_debris03_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w3_metal405_abd;
+	unsigned int w3_metal405_abd_Width, w3_metal405_abd_Height;
+	lodepng::decode(w3_metal405_abd, w3_metal405_abd_Width, w3_metal405_abd_Height, "../textures/w3_metal405_abd.PNG");
+	TexturedLambertianShader w9a02_drum01_Shader(&w3_metal405_abd, w3_metal405_abd_Width, w3_metal405_abd_Height); //diffuse texture only
+	Model w9a02_drum01("../models/w9a02_drum01.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_drum01, &w9a02_drum01_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w3_wood304_abd;
+	unsigned int w3_wood304_abd_Width, w3_wood304_abd_Height;
+	lodepng::decode(w3_wood304_abd, w3_wood304_abd_Width, w3_wood304_abd_Height, "../textures/w3_wood304_abd.PNG");
+	TexturedLambertianShader w9a02_fy1_wood04_Shader(&w3_wood304_abd, w3_wood304_abd_Width, w3_wood304_abd_Height); //diffuse texture only
+	Model w9a02_fy1_wood04("../models/w9a02_fy1_wood04.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_fy1_wood04, &w9a02_fy1_wood04_Shader, 0, rotateY(M_PI)));
+
+
+	std::vector<uint8_t> w3_concrete201_abd;
+	unsigned int w3_concrete201_abd_Width, w3_concrete201_abd_Height;
+	lodepng::decode(w3_concrete201_abd, w3_concrete201_abd_Width, w3_concrete201_abd_Height, "../textures/w3_concrete201_abd.PNG");
+	TexturedLambertianShader w9a02_km1_concrete01_Shader(&w3_concrete201_abd, w3_concrete201_abd_Width, w3_concrete201_abd_Height); //diffuse texture only
+	Model w9a02_km1_concrete01("../models/w9a02_km1_concrete01.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_km1_concrete01, &w9a02_km1_concrete01_Shader, 0, rotateY(M_PI)));
+
 	std::vector<uint8_t> w9_metal154_abd;
 	unsigned int w9_metal154_abd_Width, w9_metal154_abd_Height;
 	lodepng::decode(w9_metal154_abd, w9_metal154_abd_Width, w9_metal154_abd_Height, "../textures/w9_metal154_abd.PNG");
 	TexturedLambertianShader w9a02_metal154_Shader(&w9_metal154_abd, w9_metal154_abd_Width, w9_metal154_abd_Height); //diffuse texture only
 	Model w9a02_metal154("../models/w9a02_metal154.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal154, &w9a02_metal154_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w3_wall203_abd;
+	unsigned int w3_wall203_abd_Width, w3_wall203_abd_Height;
+	lodepng::decode(w3_wall203_abd, w3_wall203_abd_Width, w3_wall203_abd_Height, "../textures/w3_wall203_abd.PNG");
+	TexturedLambertianShader w9a02_wall03_Shader(&w3_wall203_abd, w3_wall203_abd_Width, w3_wall203_abd_Height); //diffuse texture only
+	Model w9a02_wall03("../models/w9a02_wall03.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_wall03, &w9a02_wall03_Shader, 0, rotateY(M_PI)));
 
 	////////////////////////////////////////////////	CONSOLE		////////////////////////////////////////////////////////////
 	 
@@ -129,9 +172,16 @@ int main(int argc, char* argv[]) {
 	std::vector<uint8_t> w9_metal901_abd;
 	unsigned int w9_metal901_abd_Width, w9_metal901_abd_Height;
 	lodepng::decode(w9_metal901_abd, w9_metal901_abd_Width, w9_metal901_abd_Height, "../textures/w9_metal901_abd.PNG");
-	EmissionShader ev_obj_w9_hideconsole_metal901_Shader(&w9_metal901_abd, w9_metal901_abd_Width, w9_metal901_abd_Height); //diffuse texture only
+	TexturedLambertianShader ev_obj_w9_hideconsole_metal901_Shader(&w9_metal901_abd, w9_metal901_abd_Width, w9_metal901_abd_Height); //diffuse texture only
 	Model ev_obj_w9_hideconsole_metal901("../models/ev_obj_w9_hideconsole_metal901.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_metal901, &ev_obj_w9_hideconsole_metal901_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w9_metal702_abd;
+	unsigned int w9_metal702_abd_Width, w9_metal702_abd_Height;
+	lodepng::decode(w9_metal702_abd, w9_metal702_abd_Width, w9_metal702_abd_Height, "../textures/w9_metal702_abd.PNG");
+	TexturedLambertianShader ev_obj_w9_hideconsole_metalwall702_Shader(&w9_metal702_abd, w9_metal702_abd_Width, w9_metal702_abd_Height); //diffuse texture only
+	Model ev_obj_w9_hideconsole_metalwall702("../models/ev_obj_w9_hideconsole_metalwall702.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_metalwall702, &ev_obj_w9_hideconsole_metalwall702_Shader, 0, rotateY(M_PI)));
 
 	std::vector<uint8_t> w9_monitor720_abd;
 	unsigned int w9_monitor720_abd_Width, w9_monitor720_abd_Height;
@@ -141,7 +191,35 @@ int main(int argc, char* argv[]) {
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_monitor721, &ev_obj_w9_hideconsole_monitor721_Shader, 0, rotateY(M_PI)));
 	
 	////////////////////////////////////////////////	DOORS		////////////////////////////////////////////////////////////
+	
+	Model ev_obj_w9_hidedoors_metal154("../models/ev_obj_w9_hidedoors_metal154.obj");	
+	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidedoors_metal154, &w9a02_metal154_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> w9_metal701_abd;
+	unsigned int w9_metal701_abd_Width, w9_metal701_abd_Height;
+	lodepng::decode(w9_metal701_abd, w9_metal701_abd_Width, w9_metal701_abd_Height, "../textures/w9_metal701_abd.PNG");
+	TexturedLambertianShader ev_obj_w9_hidedoors_metal701_Shader(&w9_metal701_abd, w9_metal701_abd_Width, w9_metal701_abd_Height); //diffuse texture only
+	Model ev_obj_w9_hidedoors_metal701("../models/ev_obj_w9_hidedoors_metal701.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidedoors_metal701, &ev_obj_w9_hidedoors_metal701_Shader, 0, rotateY(M_PI)));
+
+
+	std::vector<uint8_t> w9_metal744_abd;
+	unsigned int w9_metal744_abd_Width, w9_metal744_abd_Height;
+	lodepng::decode(w9_metal744_abd, w9_metal744_abd_Width, w9_metal744_abd_Height, "../textures/w9_metal744_abd.PNG");
+	TexturedLambertianShader ev_obj_w9_hidedoors_metal702_Shader(&w9_metal744_abd, w9_metal744_abd_Width, w9_metal744_abd_Height); //diffuse texture only
+	Model ev_obj_w9_hidedoors_metal702("../models/ev_obj_w9_hidedoors_metal702.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidedoors_metal702, &ev_obj_w9_hidedoors_metal702_Shader, 0, rotateY(M_PI)));
+
+	
 	////////////////////////////////////////////////	MONITOR		////////////////////////////////////////////////////////////
+	
+	Model ev_obj_w9_hidemonitor_metal154("../models/ev_obj_w9_hidemonitor_metal154.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidemonitor_metal154, &w9a02_metal154_Shader, 0, rotateY(M_PI)));
+
+	Model ev_obj_w9_hidemonitor_movtex("../models/ev_obj_w9_hidemonitor_movtex.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidemonitor_movtex, &ev_obj_w9_hideconsole_monitor721_Shader, 0, rotateY(M_PI)));
+
+	
 	////////////////////////////////////////////////	AMY	    	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////	KNUCKLES	////////////////////////////////////////////////////////////
 	////////////////////////////////////////////////	SILVER		////////////////////////////////////////////////////////////
@@ -153,9 +231,14 @@ int main(int argc, char* argv[]) {
 	////////////////////////////////////////////////	LIGHTS		////////////////////////////////////////////////////////////
 	// *** Add lights to scene ***
 	Eigen::Vector3f ambientLight(0.1f, 0.1f, 0.1f);
+
 	std::vector<std::unique_ptr<Light>> lightSources;
-	lightSources.push_back(std::make_unique<PointLight>(Eigen::Vector3f(-1.f, 3.f, -1.f), 3.f * Eigen::Vector3f(1.f, 1.f, 1.f)));
-	lightSources.push_back(std::make_unique<DirectionalLight>(Eigen::Vector3f(0.f, -1.f, 1.f), .5f * Eigen::Vector3f(3.f, 3.f, 3.f)));
+
+	//RADIUS = 0, BLENDER X Y Z = -X Z Y
+	lightSources.push_back(std::make_unique<PointLight>(Eigen::Vector3f(1.0f, 1.0f, -1.0f), Eigen::Vector3f(0.0f, 1.0f, 1.0f))); //position, intensity || Light
+	lightSources.push_back(std::make_unique<PointLight>(Eigen::Vector3f(5.0f, 3.0f, 0.0f), Eigen::Vector3f(0.0f, 10.0f, 10.0f))); //position, intensity || Light.001
+
+	lightSources.push_back(std::make_unique<DirectionalLight>(Eigen::Vector3f(0.f, -1.f, 1.f), Eigen::Vector3f(1.5f, 1.5f, 1.5f))); //direction, intensity || Sun
 
 	// *** Render the scene ***
 	// Shuffling the scanline order gets better CPU usage between threads
