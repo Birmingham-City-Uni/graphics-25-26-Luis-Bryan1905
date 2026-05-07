@@ -391,11 +391,17 @@ int drawScene(const std::string& outputFilename, ShadingMode mode, float specula
 	// I've already added an ambient light for you!
 	lights.emplace_back(new AmbientLight(Eigen::Vector3f(0.1f, 0.1f, 0.1f)));
 
-	lights.emplace_back(new PointLight(Eigen::Vector3f(0.0f, 3.0f, 3.0f), Eigen::Vector3f(1.0f, -1.0f, -1.0f))); //Blender (-x, -y, z)?
-	lights.emplace_back(new PointLight(Eigen::Vector3f(0.0f, 25, 25), Eigen::Vector3f(3.5f, -0.0f, 3.0f))); //Blender (-x, -y, z)?
-	lights.emplace_back(new PointLight(Eigen::Vector3f(50.0f, 50.0f, 50.0f), Eigen::Vector3f(1.0f, -5.0f, 6.0f)));
-	//lights.emplace_back(new DirectionalLight(Eigen::Vector3f(5.4f, 5.4f, 5.4f), Eigen::Vector3f(55.1f * M_PI / 180.f, 0.f, 0.f)));
-	//lights.emplace_back(new SpotLight(Eigen::Vector3f(10.0f, 0.0f, 0.0f), Eigen::Vector3f(0.f, 1.f, 0.0f), Eigen::Vector3f(0, -1, 0), M_PI/8));
+	//RADIUS = 0, BLENDER X Y Z = -x, -y, z
+	lights.emplace_back(new PointLight(Eigen::Vector3f(0.491f, 0.423f, 0.141) * 30, Eigen::Vector3f(-3.407f, 6.018f, -2.217f))); // intensity, postion || rt_w9a02_s01_ceilingup__0013
+	lights.emplace_back(new PointLight(Eigen::Vector3f(0.491f, 0.423f, 0.141) * 30, Eigen::Vector3f(3.0f, 6.018f, -2.217f))); // intensity, postion || rt_w9a02_s01_ceilingup__0013
+	lights.emplace_back(new PointLight(Eigen::Vector3f(0.491f, 0.423f, 0.141) * 30, Eigen::Vector3f(3.0f, 6.018f, 2.217f))); // intensity, postion || rt_w9a02_s01_ceilingup__0013
+	lights.emplace_back(new PointLight(Eigen::Vector3f(0.491f, 0.423f, 0.141) * 30, Eigen::Vector3f(-3.407f, 6.018f, 2.217f))); // intensity, postion || rt_w9a02_s01_ceilingup__0013
+
+	lights.emplace_back(new PointLight(Eigen::Vector3f(0.0f, 0.491f, 0.491) * 18, Eigen::Vector3f(5.0f, -0.0f, 0.0f))); // intensity, postion || rt_w9a02_s01_monitor__0023
+	
+	lights.emplace_back(new PointLight(Eigen::Vector3f(0.491f, 0.328f, 0.141f) * 12, Eigen::Vector3f(0.979f, 3.43f, 4.378f))); // intensity, postion || rt_w9a02_s01_wall__0019
+	lights.emplace_back(new PointLight(Eigen::Vector3f(0.491f, 0.328f, 0.141f) * 12, Eigen::Vector3f(-5.703f, 3.43f, 4.378f))); // intensity, postion || rt_w9a02_s01_wall__0020
+
 	
 	Eigen::Matrix4f MeshTransform; 
 	MeshTransform = translationMatrix(Eigen::Vector3f(-0.0f, 0.0f, 0.f)) * rotateYMatrix(M_PI);
