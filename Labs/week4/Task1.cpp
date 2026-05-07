@@ -286,11 +286,9 @@ int main()
 
 	std::string bunnyFilename = "../models/stanford_bunny_simplified.obj";
 	std::string dragonFilename = "../models/stanford_dragon_simplified.obj";
-	std::string sonicFilename = "../models/sonic.obj";
 
 	Mesh bunnyMesh = loadMeshFile(bunnyFilename);
 	Mesh dragonMesh = loadMeshFile(dragonFilename);
-	Mesh sonicMesh = loadMeshFile(sonicFilename);
 
 
 	// ============ TASK 3 =================
@@ -303,7 +301,6 @@ int main()
 
 	Eigen::Matrix4f bunnyTransform = translationMatrix(Eigen::Vector3f(-0.5f, -0.5f, 0));
 	Eigen::Matrix4f dragonTransform = scaleMatrix(1.5f) * translationMatrix(Eigen::Vector3f(0.22f, 0, 0));
-	Eigen::Matrix4f sonicTransform = rotateYMatrix(-45) * translationMatrix(Eigen::Vector3f(0.75f, -0.85f, 0));;
 
 	// =========== TASK 4 ==============
 	// Prepare your own mesh in blender, exporting as OBJ
@@ -312,7 +309,6 @@ int main()
 
 	drawMesh(imageBuffer, bunnyMesh, Eigen::Vector3f(0, 1, 0), bunnyTransform, width, height);
 	drawMesh(imageBuffer, dragonMesh, Eigen::Vector3f(0, 1, 1), dragonTransform, width, height);
-	drawMesh(imageBuffer, sonicMesh, Eigen::Vector3f(0, 0, 1), sonicTransform, width, height);
 
 	// *** Encoding image data ***
 	// PNG files are compressed to save storage space. 

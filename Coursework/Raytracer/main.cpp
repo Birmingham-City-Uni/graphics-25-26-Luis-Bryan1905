@@ -82,23 +82,23 @@ int main(int argc, char* argv[]) {
 	// Try enabling this and comparing it to the non-BVH version below!
 		// *** Load shaders and textures ***
 
-	std::vector<uint8_t> BurstTexture;
-	unsigned int BurstWidth, BurstHeight;
-	lodepng::decode(BurstTexture, BurstWidth, BurstHeight, "../textures/ggt_br1_body_abd.png");
-	TexturedLambertianShader BurstShader(&BurstTexture, BurstWidth, BurstHeight); //diffuse texture only
-	Model BurstModel("../models/Burst.obj");
+	//std::vector<uint8_t> BurstTexture;
+	//unsigned int BurstWidth, BurstHeight;
+	//lodepng::decode(BurstTexture, BurstWidth, BurstHeight, "../textures/ggt_br1_body_abd.png");
+	//TexturedLambertianShader BurstShader(&BurstTexture, BurstWidth, BurstHeight); //diffuse texture only
+	//Model BurstModel("../models/Burst.obj");
 	//scene.renderables.push_back(std::make_shared<BVHNode>(BurstModel, &BurstShader, 4, rotateY(M_PI))); // model, 
 
-	std::vector<uint8_t> TestTexture;
-	unsigned int TestWidth, TestHeight;
-	lodepng::decode(TestTexture, TestWidth, TestHeight, "../textures/w3_brick201_abd.PNG");
-	TexturedLambertianShader TestShader(&TestTexture, TestWidth, TestHeight); //diffuse texture only
-	Model TestModel("../models/untitled.obj");
+	//std::vector<uint8_t> TestTexture;
+	//unsigned int TestWidth, TestHeight;
+	//lodepng::decode(TestTexture, TestWidth, TestHeight, "../textures/w3_brick201_abd.PNG");
+	//TexturedLambertianShader TestShader(&TestTexture, TestWidth, TestHeight); //diffuse texture only
+	//Model TestModel("../models/untitled.obj");
 	//scene.renderables.push_back(std::make_shared<BVHNode>(TestModel, &TestShader, 0, rotateY(M_PI)));
 
 		// Here's how to add the mesh without using the BVH.
 	// Try comparing performance to the BVH version above.
-	Model spotModel("../models/untitled.obj");
+	//Model spotModel("../models/untitled.obj");
 	//scene.renderables.push_back(std::make_shared<Mesh>(&spotShader, &spotModel));
 	//scene.renderables.back()->modelToWorld(rotateY(M_PI / 4.0f));
 
@@ -110,6 +110,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_brick02_Shader(&w3_brick001_abd, w3_brick001_abd_Width, w3_brick001_abd_Height); //diffuse texture only
 	Model w9a02_brick02("../models/w9a02_brick02.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_brick02, &w9a02_brick02_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_brick02 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_concrete003_abd;
 	unsigned int w3_concrete003_abd_Width, w3_concrete003_abd_Height;
@@ -117,6 +118,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_concrete03_Shader(&w3_concrete003_abd, w3_concrete003_abd_Width, w3_concrete003_abd_Height); //diffuse texture only
 	Model w9a02_concrete03("../models/w9a02_concrete03.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_concrete03, &w9a02_concrete03_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_concrete03 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_wall001_abd;
 	unsigned int w3_wall001_abd_Width, w3_wall001_abd_Height;
@@ -124,6 +126,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_debris03_Shader(&w3_wall001_abd, w3_wall001_abd_Width, w3_wall001_abd_Height); //diffuse texture only
 	Model w9a02_debris03("../models/w9a02_debris03.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_debris03, &w9a02_debris03_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_debris02 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_metal405_abd;
 	unsigned int w3_metal405_abd_Width, w3_metal405_abd_Height;
@@ -131,6 +134,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_drum01_Shader(&w3_metal405_abd, w3_metal405_abd_Width, w3_metal405_abd_Height); //diffuse texture only
 	Model w9a02_drum01("../models/w9a02_drum01.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_drum01, &w9a02_drum01_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_drum01 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_wood304_abd;
 	unsigned int w3_wood304_abd_Width, w3_wood304_abd_Height;
@@ -138,6 +142,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_fy1_wood04_Shader(&w3_wood304_abd, w3_wood304_abd_Width, w3_wood304_abd_Height); //diffuse texture only
 	Model w9a02_fy1_wood04("../models/w9a02_fy1_wood04.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_fy1_wood04, &w9a02_fy1_wood04_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_fy1_wood04 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_iron402_abd;
 	unsigned int w3_iron402_abd_Width, w3_iron402_abd_Height;
@@ -145,6 +150,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_iron02_Shader(&w3_iron402_abd, w3_iron402_abd_Width, w3_iron402_abd_Height); //diffuse texture only
 	Model w9a02_iron02("../models/w9a02_iron02.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_iron02, &w9a02_iron02_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_iron02 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_brick201_abd;
 	unsigned int w3_brick201_abd_Width, w3_brick201_abd_Height;
@@ -152,6 +158,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_km1_brick01_Shader(&w3_brick201_abd, w3_brick201_abd_Width, w3_brick201_abd_Height); //diffuse texture only
 	Model w9a02_km1_brick01("../models/w9a02_km1_brick01.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_km1_brick01, &w9a02_km1_brick01_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_km1_brick01 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_concrete201_abd;
 	unsigned int w3_concrete201_abd_Width, w3_concrete201_abd_Height;
@@ -166,6 +173,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_km1_wall01_Shader(&w3_wall201_abd, w3_wall201_abd_Width, w3_wall201_abd_Height); //diffuse texture only
 	Model w9a02_km1_wall01("../models/w9a02_km1_wall01.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_km1_wall01, &w9a02_km1_wall01_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_km1_wall01 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_metal102_abd;
 	unsigned int w3_metal102_abd_Width, w3_metal102_abd_Height;
@@ -173,6 +181,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_metal02_Shader(&w3_metal102_abd, w3_metal102_abd_Width, w3_metal102_abd_Height); //diffuse texture only
 	Model w9a02_metal02("../models/w9a02_metal02.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal02, &w9a02_metal02_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal02 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_metal104_abd;
 	unsigned int w3_metal104_abd_Width, w3_metal104_abd_Height;
@@ -180,6 +189,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_metal05_Shader(&w3_metal104_abd, w3_metal104_abd_Width, w3_metal104_abd_Height); //diffuse texture only
 	Model w9a02_metal05("../models/w9a02_metal05.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal05, &w9a02_metal05_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal05 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal101_abd;
 	unsigned int w9_metal101_abd_Width, w9_metal101_abd_Height;
@@ -187,6 +197,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_metal101_kd1_Shader(&w9_metal101_abd, w9_metal101_abd_Width, w9_metal101_abd_Height); //diffuse texture only
 	Model w9a02_metal101_kd1("../models/w9a02_metal101_kd1.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal101_kd1, &w9a02_metal101_kd1_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal101_kd1 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal151_abd;
 	unsigned int w9_metal151_abd_Width, w9_metal151_abd_Height;
@@ -194,6 +205,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_metal151_Shader(&w9_metal151_abd, w9_metal151_abd_Width, w9_metal151_abd_Height); //diffuse texture only
 	Model w9a02_metal151("../models/w9a02_metal151.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal151, &w9a02_metal151_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal151 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal154_abd;
 	unsigned int w9_metal154_abd_Width, w9_metal154_abd_Height;
@@ -201,6 +213,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_metal154_Shader(&w9_metal154_abd, w9_metal154_abd_Width, w9_metal154_abd_Height); //diffuse texture only
 	Model w9a02_metal154("../models/w9a02_metal154.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal154, &w9a02_metal154_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal154 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal159_abd;
 	unsigned int w9_metal159_abd_Width, w9_metal159_abd_Height;
@@ -208,20 +221,23 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_metal159_Shader(&w9_metal159_abd, w9_metal159_abd_Width, w9_metal159_abd_Height); //diffuse texture only
 	Model w9a02_metal159("../models/w9a02_metal159.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal159, &w9a02_metal159_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal159 Loaded" << std::endl;
 
 	std::vector<uint8_t> w2_metal709_abd;
 	unsigned int w2_metal709_abd_Width, w2_metal709_abd_Height;
 	lodepng::decode(w2_metal709_abd, w2_metal709_abd_Width, w2_metal709_abd_Height, "../textures/w2_metal709_abd.PNG");
 	TexturedLambertianShader w9a02_metal709_Shader(&w2_metal709_abd, w2_metal709_abd_Width, w2_metal709_abd_Height); //diffuse texture only
 	Model w9a02_metal709("../models/w9a02_metal709.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal709, &w9a02_metal709_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal709, &w9a02_metal709_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal709 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal854_abd;
 	unsigned int w9_metal854_abd_Width, w9_metal854_abd_Height;
 	lodepng::decode(w9_metal854_abd, w9_metal854_abd_Width, w9_metal854_abd_Height, "../textures/w9_metal854_abd.PNG");
 	TexturedLambertianShader w9a02_metal854_Shader(&w9_metal854_abd, w9_metal854_abd_Width, w9_metal854_abd_Height); //diffuse texture only
 	Model w9a02_metal854("../models/w9a02_metal854.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal854, &w9a02_metal854_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal854, &w9a02_metal854_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal854 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal901_abd;
 	unsigned int w9_metal901_abd_Width, w9_metal901_abd_Height;
@@ -229,34 +245,39 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_metal901_Shader(&w9_metal901_abd, w9_metal901_abd_Width, w9_metal901_abd_Height); //diffuse texture only
 	Model w9a02_metal901("../models/w9a02_metal901.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal901, &w9a02_metal901_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal901 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal903_abd;
 	unsigned int w9_metal903_abd_Width, w9_metal903_abd_Height;
 	lodepng::decode(w9_metal903_abd, w9_metal903_abd_Width, w9_metal903_abd_Height, "../textures/w9_metal903_abd.PNG");
 	TexturedLambertianShader w9a02_metal903_Shader(&w9_metal903_abd, w9_metal903_abd_Width, w9_metal903_abd_Height); //diffuse texture only
 	Model w9a02_metal903("../models/w9a02_metal903.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal903, &w9a02_metal903_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal903, &w9a02_metal903_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal903 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal909_abd;
 	unsigned int w9_metal909_abd_Width, w9_metal909_abd_Height;
 	lodepng::decode(w9_metal909_abd, w9_metal909_abd_Width, w9_metal909_abd_Height, "../textures/w9_metal909_abd.PNG");
 	TexturedLambertianShader w9a02_metal909_Shader(&w9_metal909_abd, w9_metal909_abd_Width, w9_metal909_abd_Height); //diffuse texture only
 	Model w9a02_metal909("../models/w9a02_metal909.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal909, &w9a02_metal909_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal909, &w9a02_metal909_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal909 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal913_abd;
 	unsigned int w9_metal913_abd_Width, w9_metal913_abd_Height;
 	lodepng::decode(w9_metal913_abd, w9_metal913_abd_Width, w9_metal913_abd_Height, "../textures/w9_metal913_abd.PNG");
 	TexturedLambertianShader w9a02_metal913mc_Shader(&w9_metal913_abd, w9_metal913_abd_Width, w9_metal913_abd_Height); //diffuse texture only
 	Model w9a02_metal913mc("../models/w9a02_metal913mc.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal913mc, &w9a02_metal913mc_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metal913mc, &w9a02_metal913mc_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metal913mc Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_metal402_abd;
 	unsigned int w3_metal402_abd_Width, w3_metal402_abd_Height;
 	lodepng::decode(w3_metal402_abd, w3_metal402_abd_Width, w3_metal402_abd_Height, "../textures/w3_metal402_abd.PNG");
 	TexturedLambertianShader w9a02_metalnail001_Shader(&w3_metal402_abd, w3_metal402_abd_Width, w3_metal402_abd_Height); //diffuse texture only
 	Model w9a02_metalnail001("../models/w9a02_metalnail001.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metalnail001, &w9a02_metalnail001_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metalnail001, &w9a02_metalnail001_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metalnail001 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal702_abd;
 	unsigned int w9_metal702_abd_Width, w9_metal702_abd_Height;
@@ -264,49 +285,55 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader w9a02_metalwall701_Shader(&w9_metal702_abd, w9_metal702_abd_Width, w9_metal702_abd_Height); //diffuse texture only
 	Model w9a02_metalwall701("../models/w9a02_metalwall701.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metalwall701, &w9a02_metalwall701_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metalwall701 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal703_abd;
 	unsigned int w9_metal703_abd_Width, w9_metal703_abd_Height;
 	lodepng::decode(w9_metal703_abd, w9_metal703_abd_Width, w9_metal703_abd_Height, "../textures/w9_metal703_abd.PNG");
 	TexturedLambertianShader w9a02_metalwall703_Shader(&w9_metal703_abd, w9_metal703_abd_Width, w9_metal703_abd_Height); //diffuse texture only
 	Model w9a02_metalwall703("../models/w9a02_metalwall703.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metalwall703, &w9a02_metalwall703_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metalwall703, &w9a02_metalwall703_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metalwall703 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal705_abd;
 	unsigned int w9_metal705_abd_Width, w9_metal705_abd_Height;
 	lodepng::decode(w9_metal705_abd, w9_metal705_abd_Width, w9_metal705_abd_Height, "../textures/w9_metal705_abd.PNG");
 	TexturedLambertianShader w9a02_metalwall705_Shader(&w9_metal705_abd, w9_metal705_abd_Width, w9_metal705_abd_Height); //diffuse texture only
 	Model w9a02_metalwall705("../models/w9a02_metalwall705.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metalwall705, &w9a02_metalwall705_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_metalwall705, &w9a02_metalwall705_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_metalwall705 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_monitor720_abd;
 	unsigned int w9_monitor720_abd_Width, w9_monitor720_abd_Height;
 	lodepng::decode(w9_monitor720_abd, w9_monitor720_abd_Width, w9_monitor720_abd_Height, "../textures/w9_monitor720_abd.PNG");
-	TexturedLambertianShader w9a02_monitor721_Shader(&w9_monitor720_abd, w9_monitor720_abd_Width, w9_monitor720_abd_Height); //diffuse texture only
+	EmissionShader w9a02_monitor721_Shader(&w9_monitor720_abd, w9_monitor720_abd_Width, w9_monitor720_abd_Height); //diffuse texture only
 	Model w9a02_monitor721("../models/w9a02_monitor721.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_monitor721, &w9a02_monitor721_Shader, 0, rotateY(M_PI)));
-
+	//std::cout << "Mesh w9a02_monitor721 Loaded" << std::endl;
 
 	Model w9a02_my1_brick01("../models/w9a02_my1_brick01.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_my1_brick01, &w9a02_brick02, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_my1_brick01, &w9a02_brick02_Shader, 0, rotateY(M_PI))); // BROKEN???
+	//std::cout << "Mesh w9a02_my1_brick01 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_concrete001_abd;
 	unsigned int w3_concrete001_abd_Width, w3_concrete001_abd_Height;
 	lodepng::decode(w3_concrete001_abd, w3_concrete001_abd_Width, w3_concrete001_abd_Height, "../textures/w3_concrete001_abd.PNG");
 	TexturedLambertianShader w9a02_my1_concrete01_Shader(&w3_concrete001_abd, w3_concrete001_abd_Width, w3_concrete001_abd_Height); //diffuse texture only
 	Model w9a02_my1_concrete01("../models/w9a02_my1_concrete01.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_my1_concrete01, &w9a02_my1_concrete01_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_my1_concrete01, &w9a02_my1_concrete01_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_my1_concrete01 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_iron001_abd;
 	unsigned int w3_iron001_abd_Width, w3_iron001_abd_Height;
 	lodepng::decode(w3_iron001_abd, w3_iron001_abd_Width, w3_iron001_abd_Height, "../textures/w3_iron001_abd.PNG");
 	TexturedLambertianShader w9a02_my1_iron01_Shader(&w3_iron001_abd, w3_iron001_abd_Width, w3_iron001_abd_Height); //diffuse texture only
 	Model w9a02_my1_iron01("../models/w9a02_my1_iron01.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_my1_iron01, &w9a02_my1_iron01_Shader, 0, rotateY(M_PI)));
-
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_my1_iron01, &w9a02_my1_iron01_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_my1_iron01 Loaded" << std::endl;
 	
 	Model w9a02_my1_wall01("../models/w9a02_my1_wall01.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_my1_wall01, &w9a02_debris03_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_my1_wall01, &w9a02_debris03_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_my1_wall01 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_neon723_ems;
 	unsigned int w9_neon723_ems_Width, w9_neon723_ems_Height;
@@ -314,50 +341,59 @@ int main(int argc, char* argv[]) {
 	EmissionShader w9a02_neon745_Shader(&w9_neon723_ems, w9_neon723_ems_Width, w9_neon723_ems_Height); //diffuse texture only
 	Model w9a02_neon745("../models/w9a02_neon745.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_neon745, &w9a02_neon745_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_neon745 Loaded" << std::endl;
 
 	Model w9a02_neon746("../models/w9a02_neon746.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_neon746, &w9a02_neon745_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_neon746, &w9a02_neon745_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_neon746 Loaded" << std::endl;
 
 	Model w9a02_neon747("../models/w9a02_neon747.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_neon747, &w9a02_neon745_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_neon747, &w9a02_neon745_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_neon747 Loaded" << std::endl;
 
 	Model w9a02_neon748("../models/w9a02_neon748.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_neon748, &w9a02_neon745_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_neon748, &w9a02_neon745_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_neon748 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_pipe901_abd;
 	unsigned int w9_pipe901_abd_Width, w9_pipe901_abd_Height;
 	lodepng::decode(w9_pipe901_abd, w9_pipe901_abd_Width, w9_pipe901_abd_Height, "../textures/w9_pipe901_abd.PNG");
 	TexturedLambertianShader w9a02_pipe901_Shader(&w9_pipe901_abd, w9_pipe901_abd_Width, w9_pipe901_abd_Height); //diffuse texture only
 	Model w9a02_pipe901("../models/w9a02_pipe901.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_pipe901, &w9a02_pipe901_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_pipe901, &w9a02_pipe901_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_pipe901 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_wall203_abd;
 	unsigned int w3_wall203_abd_Width, w3_wall203_abd_Height;
 	lodepng::decode(w3_wall203_abd, w3_wall203_abd_Width, w3_wall203_abd_Height, "../textures/w3_wall203_abd.PNG");
 	TexturedLambertianShader w9a02_wall03_Shader(&w3_wall203_abd, w3_wall203_abd_Width, w3_wall203_abd_Height); //diffuse texture only
 	Model w9a02_wall03("../models/w9a02_wall03.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_wall03, &w9a02_wall03_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_wall03, &w9a02_wall03_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_wall03 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_wall205_abd;
 	unsigned int w3_wall205_abd_Width, w3_wall205_abd_Height;
 	lodepng::decode(w3_wall205_abd, w3_wall205_abd_Width, w3_wall205_abd_Height, "../textures/w3_wall205_abd.PNG");
 	TexturedLambertianShader w9a02_wall05_Shader(&w3_wall205_abd, w3_wall205_abd_Width, w3_wall205_abd_Height); //diffuse texture only
 	Model w9a02_wall05("../models/w9a02_wall05.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_wall05, &w9a02_wall05_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_wall05, &w9a02_wall05_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_wall05 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_woodburn401_abd;
 	unsigned int w3_woodburn401_abd_Width, w3_woodburn401_abd_Height;
 	lodepng::decode(w3_woodburn401_abd, w3_woodburn401_abd_Width, w3_woodburn401_abd_Height, "../textures/w3_woodburn401_abd.PNG");
 	TexturedLambertianShader w9a02_wood01_Shader(&w3_woodburn401_abd, w3_woodburn401_abd_Width, w3_woodburn401_abd_Height); //diffuse texture only
 	Model w9a02_wood01("../models/w9a02_wood01.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_wood01, &w9a02_wood01_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_wood01, &w9a02_wood01_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_wood01 Loaded" << std::endl;
 
 	std::vector<uint8_t> w3_wood005_abd;
 	unsigned int w3_wood005_abd_Width, w3_wood005_abd_Height;
 	lodepng::decode(w3_wood005_abd, w3_wood005_abd_Width, w3_wood005_abd_Height, "../textures/w3_wood005_abd.PNG");
 	TexturedLambertianShader w9a02_wood05_Shader(&w3_wood005_abd, w3_wood005_abd_Width, w3_wood005_abd_Height); //diffuse texture only
 	Model w9a02_wood05("../models/w9a02_wood05.obj");
-	//scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_wood05, &w9a02_wood05_Shader, 0, rotateY(M_PI)));
+	scene.renderables.push_back(std::make_shared<BVHNode>(w9a02_wood05, &w9a02_wood05_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh w9a02_wood05 Loaded" << std::endl;
 
 	////////////////////////////////////////////////	CONSOLE		////////////////////////////////////////////////////////////
 	 
@@ -367,21 +403,26 @@ int main(int argc, char* argv[]) {
 	EmissionShader ev_obj_w9_hideconsole_glass740_Shader(&w9_glass740_abd_a, w9_glass740_abd_a_Width, w9_glass740_abd_a_Height); //diffuse texture only
 	Model ev_obj_w9_hideconsole_glass740("../models/ev_obj_w9_hideconsole_glass740.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_glass740, &PlasticShader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh ev_obj_w9_hideconsole_glass740 Loaded" << std::endl;
 
 	
 	Model ev_obj_w9_hideconsole_metal901("../models/ev_obj_w9_hideconsole_metal901.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_metal901, &w9a02_metal901_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh ev_obj_w9_hideconsole_metal901 Loaded" << std::endl;
 
 	Model ev_obj_w9_hideconsole_metalwall702("../models/ev_obj_w9_hideconsole_metalwall702.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_metalwall702, &w9a02_metalwall701_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh ev_obj_w9_hideconsole_metalwall702 Loaded" << std::endl;
 
 	Model ev_obj_w9_hideconsole_monitor721("../models/ev_obj_w9_hideconsole_monitor721.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hideconsole_monitor721, &w9a02_monitor721_Shader, 0, rotateY(M_PI)));
-	
+	//std::cout << "Mesh ev_obj_w9_hideconsole_metalwall702 Loaded" << std::endl;
+
 	////////////////////////////////////////////////	DOORS		////////////////////////////////////////////////////////////
 	
 	Model ev_obj_w9_hidedoors_metal154("../models/ev_obj_w9_hidedoors_metal154.obj");	
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidedoors_metal154, &w9a02_metal154_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh ev_obj_w9_hidedoors_metal154 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal701_abd;
 	unsigned int w9_metal701_abd_Width, w9_metal701_abd_Height;
@@ -389,7 +430,7 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader ev_obj_w9_hidedoors_metal701_Shader(&w9_metal701_abd, w9_metal701_abd_Width, w9_metal701_abd_Height); //diffuse texture only
 	Model ev_obj_w9_hidedoors_metal701("../models/ev_obj_w9_hidedoors_metal701.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidedoors_metal701, &ev_obj_w9_hidedoors_metal701_Shader, 0, rotateY(M_PI)));
-
+	//std::cout << "Mesh ev_obj_w9_hidedoors_metal701 Loaded" << std::endl;
 
 	std::vector<uint8_t> w9_metal744_abd;
 	unsigned int w9_metal744_abd_Width, w9_metal744_abd_Height;
@@ -397,24 +438,229 @@ int main(int argc, char* argv[]) {
 	TexturedLambertianShader ev_obj_w9_hidedoors_metal702_Shader(&w9_metal744_abd, w9_metal744_abd_Width, w9_metal744_abd_Height); //diffuse texture only
 	Model ev_obj_w9_hidedoors_metal702("../models/ev_obj_w9_hidedoors_metal702.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidedoors_metal702, &ev_obj_w9_hidedoors_metal702_Shader, 0, rotateY(M_PI)));
-
+	//std::cout << "Mesh ev_obj_w9_hidedoors_metal702 Loaded" << std::endl;
 	
 	////////////////////////////////////////////////	MONITOR		////////////////////////////////////////////////////////////
 	
 	Model ev_obj_w9_hidemonitor_metal154("../models/ev_obj_w9_hidemonitor_metal154.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidemonitor_metal154, &w9a02_metal154_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh ev_obj_w9_hidemonitor_metal154 Loaded" << std::endl;
 
 	Model ev_obj_w9_hidemonitor_movtex("../models/ev_obj_w9_hidemonitor_movtex.obj");
 	scene.renderables.push_back(std::make_shared<BVHNode>(ev_obj_w9_hidemonitor_movtex, &w9a02_monitor721_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh ev_obj_w9_hidemonitor_movtex Loaded" << std::endl;
 
 	
 	////////////////////////////////////////////////	AMY	    	////////////////////////////////////////////////////////////
-	////////////////////////////////////////////////	KNUCKLES	////////////////////////////////////////////////////////////
+	
+	std::vector<uint8_t> chr_amy_cloth_abd;
+	unsigned int chr_amy_cloth_abd_Width, chr_amy_cloth_abd_Height;
+	lodepng::decode(chr_amy_cloth_abd, chr_amy_cloth_abd_Width, chr_amy_cloth_abd_Height, "../textures/chr_amy_cloth_abd.PNG");
+	TexturedLambertianShader Amy_Cloth_Shader(&chr_amy_cloth_abd, chr_amy_cloth_abd_Width, chr_amy_cloth_abd_Height); //diffuse texture only
+	Model Amy_Cloth("../models/Amy_Cloth.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Amy_Cloth, &Amy_Cloth_Shader, 0, rotateY(M_PI)));
+
+	std::vector<uint8_t> chr_amy_dress_abd;
+	unsigned int chr_amy_dress_abd_Width, chr_amy_dress_abd_Height;
+	lodepng::decode(chr_amy_dress_abd, chr_amy_dress_abd_Width, chr_amy_dress_abd_Height, "../textures/chr_amy_dress_abd.PNG");
+	TexturedLambertianShader Amy_Dress_Shader(&chr_amy_dress_abd, chr_amy_dress_abd_Width, chr_amy_dress_abd_Height); //diffuse texture only
+	Model Amy_Dress("../models/Amy_Dress.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Amy_Dress, &Amy_Dress_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Amy_Dress Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_amy_skin_abd;
+	unsigned int chr_amy_skin_abd_Width, chr_amy_skin_abd_Height;
+	lodepng::decode(chr_amy_skin_abd, chr_amy_skin_abd_Width, chr_amy_skin_abd_Height, "../textures/chr_amy_skin_abd.PNG");
+	TexturedLambertianShader Amy_Skin_Shader(&chr_amy_skin_abd, chr_amy_skin_abd_Width, chr_amy_skin_abd_Height); //diffuse texture only
+	Model Amy_Skin("../models/Amy_Skin.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Amy_Skin, &Amy_Skin_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Amy_Skin Loaded" << std::endl;
+
+	////////////////////////////////////////////////	KNUCKLES	////////////////////////////////////////////////////////////	
+
+	std::vector<uint8_t> chr_knuckles_body_abd;
+	unsigned int chr_knuckles_body_abd_Width, chr_knuckles_body_abd_Height;
+	lodepng::decode(chr_knuckles_body_abd, chr_knuckles_body_abd_Width, chr_knuckles_body_abd_Height, "../textures/chr_knuckles_body_abd.PNG");
+	TexturedLambertianShader Knuckles_Body_Shader(&chr_knuckles_body_abd, chr_knuckles_body_abd_Width, chr_knuckles_body_abd_Height); //diffuse texture only
+	Model Knuckles_Body("../models/Knuckles_Body.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Knuckles_Body, &Knuckles_Body_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Knuckles_body Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_knuckles_cloth_abd;
+	unsigned int chr_knuckles_cloth_abd_Width, chr_knuckles_cloth_abd_Height;
+	lodepng::decode(chr_knuckles_cloth_abd, chr_knuckles_cloth_abd_Width, chr_knuckles_cloth_abd_Height, "../textures/chr_knuckles_cloth_abd.PNG");
+	TexturedLambertianShader Knuckles_Cloth_Shader(&chr_knuckles_cloth_abd, chr_knuckles_cloth_abd_Width, chr_knuckles_cloth_abd_Height); //diffuse texture only
+	Model Knuckles_Cloth("../models/Knuckles_Cloth.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Knuckles_Cloth, &Knuckles_Cloth_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Knuckles_cloth Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_knuckles_eye_abd;
+	unsigned int chr_knuckles_eye_abd_Width, chr_knuckles_eye_abd_Height;
+	lodepng::decode(chr_knuckles_eye_abd, chr_knuckles_eye_abd_Width, chr_knuckles_eye_abd_Height, "../textures/chr_knuckles_eye_abd.PNG");
+	TexturedLambertianShader Knuckles_eye_Shader(&chr_knuckles_eye_abd, chr_knuckles_eye_abd_Width, chr_knuckles_eye_abd_Height); //diffuse texture only
+	Model Knuckles_eye("../models/Knuckles_eye.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Knuckles_eye, &Knuckles_eye_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Knuckles_eye Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_knuckles_shoe_abd;
+	unsigned int chr_knuckles_shoe_abd_Width, chr_knuckles_shoe_abd_Height;
+	lodepng::decode(chr_knuckles_shoe_abd, chr_knuckles_shoe_abd_Width, chr_knuckles_shoe_abd_Height, "../textures/chr_knuckles_shoes_abd.PNG");
+	TexturedLambertianShader Knuckles_Shoe_Shader(&chr_knuckles_shoe_abd, chr_knuckles_shoe_abd_Width, chr_knuckles_shoe_abd_Height); //diffuse texture only
+	Model Knuckles_Shoe("../models/Knuckles_Shoe.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Knuckles_Shoe, &Knuckles_Shoe_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Knuckles_shoe Loaded" << std::endl;
+
 	////////////////////////////////////////////////	SILVER		////////////////////////////////////////////////////////////
+
+	std::vector<uint8_t> chr_silver_body_abd;
+	unsigned int chr_silver_body_abd_Width, chr_silver_body_abd_Height;
+	lodepng::decode(chr_silver_body_abd, chr_silver_body_abd_Width, chr_silver_body_abd_Height, "../textures/chr_silver_body_abd.PNG");
+	TexturedLambertianShader Silver_Body_Shader(&chr_silver_body_abd, chr_silver_body_abd_Width, chr_silver_body_abd_Height); //diffuse texture only
+	Model Silver_Body("../models/Silver_Body.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Silver_Body, &Silver_Body_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Silver_body Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_silver_cloth_abd;
+	unsigned int chr_silver_cloth_abd_Width, chr_silver_cloth_abd_Height;
+	lodepng::decode(chr_silver_cloth_abd, chr_silver_cloth_abd_Width, chr_silver_cloth_abd_Height, "../textures/chr_silver_cloth_abd.PNG");
+	TexturedLambertianShader Silver_Cloth_Shader(&chr_silver_cloth_abd, chr_silver_cloth_abd_Width, chr_silver_cloth_abd_Height); //diffuse texture only
+	Model Silver_Cloth("../models/Silver_Cloth.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Silver_Cloth, &Silver_Cloth_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Silver_cloth Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_silver_cell_abd;
+	unsigned int chr_silver_cell_abd_Width, chr_silver_cell_abd_Height;
+	lodepng::decode(chr_silver_cell_abd, chr_silver_cell_abd_Width, chr_silver_cell_abd_Height, "../textures/chr_silver_cell_abd.PNG");
+	TexturedLambertianShader Silver_Cell_Shader(&chr_silver_cell_abd, chr_silver_cell_abd_Width, chr_silver_cell_abd_Height); //diffuse texture only
+	Model Silver_Cell("../models/Silver_Cell.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Silver_Cell, &Silver_Cell_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Silver_cell Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_silver_fur_abd;
+	unsigned int chr_silver_fur_abd_Width, chr_silver_fur_abd_Height;
+	lodepng::decode(chr_silver_fur_abd, chr_silver_fur_abd_Width, chr_silver_fur_abd_Height, "../textures/chr_silver_fur_abd.PNG");
+	TexturedLambertianShader Silver_Fur_Shader(&chr_silver_fur_abd, chr_silver_fur_abd_Width, chr_silver_fur_abd_Height); //diffuse texture only
+	Model Silver_Fur("../models/Silver_Fur.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Silver_Fur, &Silver_Fur_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Silver_fur Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_silver_light_abd;
+	unsigned int chr_silver_light_abd_Width, chr_silver_light_abd_Height;
+	lodepng::decode(chr_silver_light_abd, chr_silver_light_abd_Width, chr_silver_light_abd_Height, "../textures/chr_silver_light_abd.PNG");
+	EmissionShader Silver_Light_Shader(&chr_silver_light_abd, chr_silver_light_abd_Width, chr_silver_light_abd_Height); //diffuse texture only
+	Model Silver_Light("../models/Silver_Light.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Silver_Light, &Silver_Light_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Silver_light Loaded" << std::endl;
+
 	////////////////////////////////////////////////	CHARMY		////////////////////////////////////////////////////////////
+
+	std::vector<uint8_t> chr_charmy_black_abd;
+	unsigned int chr_charmy_black_abd_Width, chr_charmy_black_abd_Height;
+	lodepng::decode(chr_charmy_black_abd, chr_charmy_black_abd_Width, chr_charmy_black_abd_Height, "../textures/chr_charmy_black_abd.PNG");
+	TexturedLambertianShader Charmy_Black_Shader(&chr_charmy_black_abd, chr_charmy_black_abd_Width, chr_charmy_black_abd_Height); //diffuse texture only
+	Model Charmy_Black("../models/Charmy_Black.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Charmy_Black, &Charmy_Black_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Charmy_black Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_charmy_cloth_abd;
+	unsigned int chr_charmy_cloth_abd_Width, chr_charmy_cloth_abd_Height;
+	lodepng::decode(chr_charmy_cloth_abd, chr_charmy_cloth_abd_Width, chr_charmy_cloth_abd_Height, "../textures/chr_charmy_cloth_abd.PNG");
+	TexturedLambertianShader Charmy_Cloth_Shader(&chr_charmy_cloth_abd, chr_charmy_cloth_abd_Width, chr_charmy_cloth_abd_Height); //diffuse texture only
+	Model Charmy_Cloth("../models/Charmy_Cloth.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Charmy_Cloth, &Charmy_Cloth_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Charmy_cloth Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_charmy_lenz_abd;
+	unsigned int chr_charmy_lenz_abd_Width, chr_charmy_lenz_abd_Height;
+	lodepng::decode(chr_charmy_lenz_abd, chr_charmy_lenz_abd_Width, chr_charmy_lenz_abd_Height, "../textures/chr_charmy_lenz_abd.PNG");
+	TexturedLambertianShader Charmy_lenz_Shader(&chr_charmy_lenz_abd, chr_charmy_lenz_abd_Width, chr_charmy_lenz_abd_Height); //diffuse texture only
+	Model Charmy_lenz("../models/Charmy_lenz.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Charmy_lenz, &Charmy_lenz_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Charmy_Lenz Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_charmy_skin_abd;
+	unsigned int chr_charmy_skin_abd_Width, chr_charmy_skin_abd_Height;
+	lodepng::decode(chr_charmy_skin_abd, chr_charmy_skin_abd_Width, chr_charmy_skin_abd_Height, "../textures/chr_charmy_skin_abd.PNG");
+	TexturedLambertianShader Charmy_Skin_Shader(&chr_charmy_skin_abd, chr_charmy_skin_abd_Width, chr_charmy_skin_abd_Height); //diffuse texture only
+	Model Charmy_Skin("../models/Charmy_Skin.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Charmy_Skin, &Charmy_Skin_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Charmy_skin Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_charmy_wing_abd;
+	unsigned int chr_charmy_wing_abd_Width, chr_charmy_wing_abd_Height;
+	lodepng::decode(chr_charmy_wing_abd, chr_charmy_wing_abd_Width, chr_charmy_wing_abd_Height, "../textures/chr_charmy_skin_abd.PNG");
+	TexturedLambertianShader Charmy_Wing_Shader(&chr_charmy_wing_abd, chr_charmy_wing_abd_Width, chr_charmy_wing_abd_Height); //diffuse texture only
+	Model Charmy_Wing("../models/Charmy_Wing.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Charmy_Wing, &Charmy_Wing_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Charmy_Wing Loaded" << std::endl;
+
 	////////////////////////////////////////////////	ESPIO		////////////////////////////////////////////////////////////
+
+	std::vector<uint8_t> chr_espio_cloth_abd;
+	unsigned int chr_espio_cloth_abd_Width, chr_espio_cloth_abd_Height;
+	lodepng::decode(chr_espio_cloth_abd, chr_espio_cloth_abd_Width, chr_espio_cloth_abd_Height, "../textures/chr_espio_cloth_abd.PNG");
+	TexturedLambertianShader Espio_Cloth_Shader(&chr_espio_cloth_abd, chr_espio_cloth_abd_Width, chr_espio_cloth_abd_Height); //diffuse texture only
+	Model Espio_Cloth("../models/Espio_Cloth.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Espio_Cloth, &Espio_Cloth_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Espio_cloth Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_espio_body_abd;
+	unsigned int chr_espio_body_abd_Width, chr_espio_body_abd_Height;
+	lodepng::decode(chr_espio_body_abd, chr_espio_body_abd_Width, chr_espio_body_abd_Height, "../textures/chr_espio_skin_abd.png");
+	TexturedLambertianShader Espio_Body_Shader(&chr_espio_body_abd, chr_espio_body_abd_Width, chr_espio_body_abd_Height); //diffuse texture only
+	Model Espio_Body("../models/Espio_Body.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Espio_Body, &Espio_Body_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Espio_body Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_espio_leather_abd;
+	unsigned int chr_espio_leather_abd_Width, chr_espio_leather_abd_Height;
+	lodepng::decode(chr_espio_leather_abd, chr_espio_leather_abd_Width, chr_espio_leather_abd_Height, "../textures/chr_espio_parts_abd.PNG");
+	TexturedLambertianShader Espio_Leather_Shader(&chr_espio_leather_abd, chr_espio_leather_abd_Width, chr_espio_leather_abd_Height); //diffuse texture only
+	Model Espio_Leather("../models/Espio_Leather.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Espio_Leather, &Espio_Leather_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Espio_leather Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_espio_skin_abd;
+	unsigned int chr_espio_skin_abd_Width, chr_espio_skin_abd_Height;
+	lodepng::decode(chr_espio_skin_abd, chr_espio_skin_abd_Width, chr_espio_skin_abd_Height, "../textures/chr_espio_skin_abd.PNG");
+	TexturedLambertianShader Espio_Skin_Shader(&chr_espio_skin_abd, chr_espio_skin_abd_Width, chr_espio_skin_abd_Height); //diffuse texture only
+	Model Espio_Skin("../models/Espio_Skin.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Espio_Skin, &Espio_Skin_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Espio_skin Loaded" << std::endl;
+
 	////////////////////////////////////////////////	VECTOR		////////////////////////////////////////////////////////////
 
+	std::vector<uint8_t> chr_vector_cloth_abd;
+	unsigned int chr_vector_cloth_abd_Width, chr_vector_cloth_abd_Height;
+	lodepng::decode(chr_vector_cloth_abd, chr_vector_cloth_abd_Width, chr_vector_cloth_abd_Height, "../textures/chr_vector_cloth_abd.PNG");
+	TexturedLambertianShader Vector_Cloth_Shader(&chr_vector_cloth_abd, chr_vector_cloth_abd_Width, chr_vector_cloth_abd_Height); //diffuse texture only
+	Model Vector_Cloth("../models/Vector_Cloth.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Vector_Cloth, &Vector_Cloth_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Vector_cloth Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_vector_eye_abd;
+	unsigned int chr_vector_eye_abd_Width, chr_vector_eye_abd_Height;
+	lodepng::decode(chr_vector_eye_abd, chr_vector_eye_abd_Width, chr_vector_eye_abd_Height, "../textures/chr_vector_eye_abd.png");
+	TexturedLambertianShader Vector_eye_Shader(&chr_vector_eye_abd, chr_vector_eye_abd_Width, chr_vector_eye_abd_Height); //diffuse texture only
+	Model Vector_eye("../models/Vector_eye.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Vector_eye, &Vector_eye_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Vector_eye Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_vector_leather_abd;
+	unsigned int chr_vector_leather_abd_Width, chr_vector_leather_abd_Height;
+	lodepng::decode(chr_vector_leather_abd, chr_vector_leather_abd_Width, chr_vector_leather_abd_Height, "../textures/chr_vector_parts_abd.PNG");
+	TexturedLambertianShader Vector_Leather_Shader(&chr_vector_leather_abd, chr_vector_leather_abd_Width, chr_vector_leather_abd_Height); //diffuse texture only
+	Model Vector_Leather("../models/Vector_Leather.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Vector_Leather, &Vector_Leather_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Vector_leather Loaded" << std::endl;
+
+	std::vector<uint8_t> chr_vector_skin_abd;
+	unsigned int chr_vector_skin_abd_Width, chr_vector_skin_abd_Height;
+	lodepng::decode(chr_vector_skin_abd, chr_vector_skin_abd_Width, chr_vector_skin_abd_Height, "../textures/chr_vector_skin_abd.png");
+	TexturedLambertianShader Vector_Skin_Shader(&chr_vector_skin_abd, chr_vector_skin_abd_Width, chr_vector_skin_abd_Height); //diffuse texture only
+	Model Vector_Skin("../models/Vector_Skin.obj");
+	scene.renderables.push_back(std::make_shared<BVHNode>(Vector_Skin, &Vector_Skin_Shader, 0, rotateY(M_PI)));
+	//std::cout << "Mesh Vector_skin Loaded" << std::endl;
 
 	////////////////////////////////////////////////	LIGHTS		////////////////////////////////////////////////////////////
 	// *** Add lights to scene ***
